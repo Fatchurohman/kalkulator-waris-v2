@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator Waris Syafi'i v2.6</title>
-  <!-- Tailwind CSS CDN -->
+  <title>Kalkulator Waris Syafi'i v2.0 Final</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Plus Jakarta Sans & Amiri (Arab) -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,22 +17,21 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between p-3 sm:p-6">
 
-  <!-- CONTAINER UTAMA -->
   <div class="max-w-3xl w-full mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-xl overflow-hidden p-5 sm:p-8">
     
-    <!-- HEADER BOX -->
+
     <div class="text-center border-b border-slate-100 pb-5 mb-6">
       <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold mb-2 border border-emerald-100">
-        <span>🕌</span> Faraidh Mazhab Syafi'i v2.6
+        <span>🕌</span> Faraidh Mazhab Syafi'i v2.0 Engine
       </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Kalkulator Waris Islam</h1>
-      <p class="text-xs sm:text-sm text-slate-500 mt-1">Perhitungan otomatis sesuai Hukum Faraidh Syafi'i, Dalil Syari'i, & Sifat Kasus</p>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Kalkulator Waris Islam v2</h1>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">Mendukung Kasus Normal, 'Aul, Radd, Gharrawain, & Status Khusus Fiqh</p>
       <div class="text-[11px] text-amber-600 font-semibold mt-2">developer: fatur62</div>
     </div>
 
     <form id="formWaris" onsubmit="return false;">
       
-      <!-- SEKSI 1: DATA HARTA & TANGGUNGAN -->
+
       <div class="mb-6">
         <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
           <span>1.</span> Data Harta & Tanggungan (Rp)
@@ -53,7 +52,7 @@
         </div>
       </div>
 
-      <!-- SEKSI 2: AHLI WARIS UTAMA -->
+
       <div class="mb-6">
         <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
           <span>2.</span> Ahli Waris Utama (Garis Usul & Furu')
@@ -93,7 +92,7 @@
         </div>
       </div>
 
-      <!-- SEKSI 3: CUCU & NENEK / KAKEK -->
+
       <div class="mb-6">
         <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
           <span>3.</span> Cucu & Kakek / Nenek
@@ -128,7 +127,7 @@
         </div>
       </div>
 
-      <!-- SEKSI 4: SAUDARA & PAMAN -->
+
       <div class="mb-6">
         <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
           <span>4.</span> Saudara & Kerabat Laki-Laki (Hawasi)
@@ -183,24 +182,49 @@
         </div>
       </div>
 
-      <!-- TOMBOL HITUNG -->
+      <!-- SEKSI 5: STATUS KHUSUS WARIS (FITUR v2.0 BARU) -->
+      <div class="mb-6 p-4 bg-amber-50/60 border border-amber-200 rounded-2xl">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-900 border-b border-amber-200 pb-2 mb-3 flex items-center gap-2">
+          <span>5.</span> Status Khusus Ahli Waris (Kondisi Luar Biasa)
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          <div class="p-2.5 rounded-xl border border-amber-200 bg-white flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">👶 Anak Di Luar Nikah (Anak Zina)</label>
+            <input type="number" id="anakLuarNikah" min="0" value="0" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs font-bold text-center">
+          </div>
+
+          <div class="p-2.5 rounded-xl border border-amber-200 bg-white flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-700">🚫 Ahli Waris Beda Agama / Murtad</label>
+            <input type="number" id="warisBedaAgama" min="0" value="0" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs font-bold text-center">
+          </div>
+
+          <label class="flex items-center justify-between p-2.5 rounded-xl border border-amber-200 bg-white cursor-pointer transition-all sm:col-span-2">
+            <span class="text-xs font-bold text-slate-700">🤰 Ada Istri/Ibu Sedang Hamil? (Anak Dalam Kandungan)</span>
+            <input type="checkbox" id="adaHamil" class="w-4 h-4 accent-amber-600">
+          </label>
+
+        </div>
+      </div>
+
+
       <button type="button" onclick="prosesHitungWaris()" class="w-full py-4 bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-emerald-700/25 active:scale-98 transition-all">
         ⚡ Hitung Pembagian Waris
       </button>
 
     </form>
 
-    <!-- HASIL OUTPUT (RENDERED BY SCRIPT.JS) -->
+
     <div id="hasilOutput" class="mt-8"></div>
 
-    <!-- TOMBOL CETAK -->
+
     <button id="btnCetakPDF" onclick="window.print()" class="hidden w-full mt-4 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl shadow-md transition-all">
       🖨️ Cetak / Simpan PDF Hasil Perhitungan
     </button>
 
   </div>
 
-  <!-- SCRIPT HELPER PERIFAREL -->
+
   <script>
     function formatRupiahInput(input) {
       let value = input.value.replace(/[^0-9]/g, '');
@@ -220,7 +244,7 @@
     }
   </script>
 
-  <!-- KONEKSIKAN KE ENGINE SCRIPT.JS v2.6 -->
-  <script src="script.js?v=2.6"></script>
+
+  <script src="script.js?v=2.0-final"></script>
 </body>
 </html>
