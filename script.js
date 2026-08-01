@@ -1,5 +1,5 @@
 /**
- * Engine Kalkulator Faraidh - Mazhab Syafi'i (v2.6 Stable for Mobile)
+ * Engine Kalkulator Faraidh - Mazhab Syafi'i (v2.0 Final Engine)
  * Developer: fatur62
  */
 
@@ -37,11 +37,17 @@ class FaraidhEngineSyafii {
             pamanKandung: parseInt(inputData.pamanKandung) || 0,
             pamanSeayah: parseInt(inputData.pamanSeayah) || 0,
             anakPamanKandung: parseInt(inputData.anakPamanKandung) || 0,
-            anakPamanSeayah: parseInt(inputData.anakPamanSeayah) || 0
+            anakPamanSeayah: parseInt(inputData.anakPamanSeayah) || 0,
+            
+            // Variabel Kasus Khusus v.2
+            anakLuarNikah: parseInt(inputData.anakLuarNikah) || 0,
+            warisBedaAgama: parseInt(inputData.warisBedaAgama) || 0,
+            adaHamil: inputData.adaHamil || false
         };
 
         this.statusHijab = {};
         this.warisAktif = { ...this.rawWaris };
+        this.catatanKhusus = [];
     }
 
     terapkanHijab() {
@@ -50,6 +56,21 @@ class FaraidhEngineSyafii {
 
         for (let k in w) {
             h[k] = { terhalang: false, oleh: "" };
+        }
+
+        // 1. PENANGANAN AHLI WARIS BEDA AGAMA (MAHRUM)
+        if (w.warisBedaAgama > 0) {
+            this.catatanKhusus.push(`🚫 ${w.warisBedaAgama} orang Ahli Waris Beda Agama/Murtad terhalang mutlak (Mahrūm) menerima warisan berdasarkan kesepakatan ulama.`);
+        }
+
+        // 2. PENANGANAN ANAK DI LUAR NIKAH (ANAK ZINA)
+        if (w.anakLuarNikah > 0) {
+            this.catatanKhusus.push(`👶 ${w.anakLuarNikah} Anak Di Luar Nikah hanya memiliki hubungan nasab & waris dengan IBU KANDUNG. Tidak mewarisi dari Ayah Biologis.`);
+        }
+
+        // 3. PENANGANAN ANAK DALAM KANDUNGAN
+        if (w.adaHamil) {
+            this.catatanKhusus.push(`🤰 Ada Anak Dalam Kandungan: Disarankan pembagian ditangguhkan hingga bayi lahir, atau disisihkan porsi terbesar (anak laki-laki).`);
         }
 
         const adaAnakLaki = w.anakLaki > 0;
@@ -107,28 +128,6 @@ class FaraidhEngineSyafii {
             w.saudaraSeayahLaki = 0;
             w.saudaraSeayahPerempuan = 0;
         }
-
-        const adaAshabahLebihDekat = adaKeturunanLaki || adaAyah || w.kakek > 0 || w.saudaraKandungLaki > 0 || w.saudaraSeayahLaki > 0 || sKandungP_IsAshabah;
-
-        if (adaAshabahLebihDekat) {
-            h.pamanKandung = { terhalang: true, oleh: "Garis Utama / Saudara Laki" };
-            w.pamanKandung = 0;
-        }
-
-        if (adaAshabahLebihDekat || w.pamanKandung > 0) {
-            h.pamanSeayah = { terhalang: true, oleh: "Paman Kandung" };
-            w.pamanSeayah = 0;
-        }
-
-        if (adaAshabahLebihDekat || w.pamanKandung > 0 || w.pamanSeayah > 0) {
-            h.anakPamanKandung = { terhalang: true, oleh: "Paman" };
-            w.anakPamanKandung = 0;
-        }
-
-        if (adaAshabahLebihDekat || w.pamanKandung > 0 || w.pamanSeayah > 0 || w.anakPamanKandung > 0) {
-            h.anakPamanSeayah = { terhalang: true, oleh: "Sepupu Kandung" };
-            w.anakPamanSeayah = 0;
-        }
     }
 
     kalkulasi() {
@@ -173,9 +172,9 @@ class FaraidhEngineSyafii {
             return {
                 hartaKotor: this.hartaKotor, hutangBiaya: this.hutangBiaya, wasiatDiterima: this.wasiatDiterima,
                 hartaBersih: this.hartaBersih, statusKalkulasi: "KASUS KHUSUS: GHARRAWAIN",
-                penjelasanStatus: "Kasus keputusan Umar bin Khattab RA: Ibu dapat 1/3 dari SISA harta setelah porsi pasangan diambil.",
+                penjelasanStatus: "Kasus Umar bin Khattab RA: Ibu dapat 1/3 dari SISA harta setelah porsi pasangan diambil.",
                 rawInput: this.rawWaris, warisAktif: this.warisAktif, statusHijab: this.statusHijab,
-                hasilNominal: hasilNominal, keterangan: ket
+                hasilNominal: hasilNominal, keterangan: ket, catatanKhusus: this.catatanKhusus
             };
         }
 
@@ -219,40 +218,30 @@ class FaraidhEngineSyafii {
             }
         }
 
-        if (w.kakek && w.ayah === 0) {
-            if (w.anakLaki > 0 || w.cucuLaki > 0) {
-                p.kakek = 1/6;
-                ket.kakek = "1/6 (Fardh Murni)";
-            } else if (w.anakPerempuan > 0 || w.cucuPerempuan > 0) {
-                p.kakek = 1/6;
-                ket.kakek = "1/6 + 'Ashabah";
-            } else {
-                ket.kakek = "'Ashabah bi Nafsihi";
-            }
-        }
-
         if (w.saudaraSeibu > 0) {
-            if (w.saudaraSeibu === 1) {
-                p.saudaraSeibu = 1/6;
-                ket.saudaraSeibu = "1/6 (1 orang)";
-            } else {
-                p.saudaraSeibu = 1/3;
-                ket.saudaraSeibu = `1/3 (Dibagi ${w.saudaraSeibu} orang)`;
-            }
+            p.saudaraSeibu = (w.saudaraSeibu === 1) ? 1/6 : 1/3;
+            ket.saudaraSeibu = (w.saudaraSeibu === 1) ? "1/6 (1 orang)" : `1/3 (Dibagi ${w.saudaraSeibu} orang)`;
         }
 
         if (w.anakLaki === 0 && w.anakPerempuan > 0) {
-            if (w.anakPerempuan === 1) {
-                p.anakPerempuan = 1/2;
-                ket.anakPerempuan = "1/2 (Tunggal)";
-            } else {
-                p.anakPerempuan = 2/3;
-                ket.anakPerempuan = `2/3 (Dibagi ${w.anakPerempuan} anak perempuan)`;
-            }
+            p.anakPerempuan = (w.anakPerempuan === 1) ? 1/2 : 2/3;
+            ket.anakPerempuan = (w.anakPerempuan === 1) ? "1/2 (Tunggal)" : `2/3 (Dibagi ${w.anakPerempuan} anak perempuan)`;
         } else if (w.anakLaki > 0) {
             ket.anakLaki = "'Ashabah bi Nafsihi (Sisa, rasio 2:1)";
-            if (w.anakPerempuan > 0) {
-                ket.anakPerempuan = "'Ashabah bil Ghair (Rasio 1:2)";
+            if (w.anakPerempuan > 0) ket.anakPerempuan = "'Ashabah bil Ghair (Rasio 1:2)";
+        }
+
+        if (w.anakLaki === 0 && w.cucuLaki === 0 && w.ayah === 0 && w.kakek === 0) {
+            if (w.saudaraKandungLaki === 0 && w.saudaraKandungPerempuan > 0) {
+                if (w.anakPerempuan > 0 || w.cucuPerempuan > 0) {
+                    ket.saudaraKandungPerempuan = "'Ashabah ma'al Ghair (Sisa bersama keturunan pr)";
+                } else {
+                    p.saudaraKandungPerempuan = (w.saudaraKandungPerempuan === 1) ? 1/2 : 2/3;
+                    ket.saudaraKandungPerempuan = (w.saudaraKandungPerempuan === 1) ? "1/2 (Tunggal)" : `2/3 (Dibagi ${w.saudaraKandungPerempuan} orang)`;
+                }
+            } else if (w.saudaraKandungLaki > 0) {
+                ket.saudaraKandungLaki = "'Ashabah bi Nafsihi";
+                if (w.saudaraKandungPerempuan > 0) ket.saudaraKandungPerempuan = "'Ashabah bil Ghair";
             }
         }
 
@@ -265,7 +254,7 @@ class FaraidhEngineSyafii {
 
         if (totalFardh > 1.000001) {
             statusKalkulasi = "TERJADI 'AUL";
-            penjelasanStatus = "Total porsi melebihi 100%. Porsi disesuaikan secara proporsional.";
+            penjelasanStatus = `Total porsi pasti (${(totalFardh * 100).toFixed(1)}%) melebihi 100%. Porsi pembagi dinaikkan proporsional.`;
             for (let key in p) {
                 let porsiAul = p[key] / totalFardh;
                 hasilNominal[key] = porsiAul * this.hartaBersih;
@@ -285,9 +274,6 @@ class FaraidhEngineSyafii {
                 adaAshabah = true;
             } else if (w.ayah) {
                 hasilNominal.ayah = (hasilNominal.ayah || 0) + sisaHarta;
-                adaAshabah = true;
-            } else if (w.kakek) {
-                hasilNominal.kakek = (hasilNominal.kakek || 0) + sisaHarta;
                 adaAshabah = true;
             } else if (w.saudaraKandungLaki > 0) {
                 let totalPoin = (w.saudaraKandungLaki * 2) + (w.saudaraKandungPerempuan * 1);
@@ -310,7 +296,7 @@ class FaraidhEngineSyafii {
                         if (key !== "suami" && key !== "istri") {
                             let porsiRadd = (p[key] / totalFardhNonPasangan) * sisaHarta;
                             hasilNominal[key] += porsiRadd;
-                            ket[key] += " + [Radd]";
+                            ket[key] += " + [Dapat Radd]";
                         }
                     }
                 }
@@ -321,19 +307,19 @@ class FaraidhEngineSyafii {
             hartaKotor: this.hartaKotor, hutangBiaya: this.hutangBiaya, wasiatDiterima: this.wasiatDiterima,
             hartaBersih: this.hartaBersih, statusKalkulasi: statusKalkulasi, penjelasanStatus: penjelasanStatus,
             rawInput: this.rawWaris, warisAktif: this.warisAktif, statusHijab: this.statusHijab,
-            hasilNominal: hasilNominal, keterangan: ket
+            hasilNominal: hasilNominal, keterangan: ket, catatanKhusus: this.catatanKhusus
         };
     }
 }
 
-// Map Dalil Sederhana
 const DALIL_MAP = {
     suami: { arabic: "وَلَكُمْ نِصْفُ مَا تَرَكَ أَزْوَاجُكُمْ إِن لَّمْ يَكُن لَّهُنَّ وَلَدٌ", indo: '"Dan bagimu seperdua dari harta yang ditinggalkan istri-istrimu..."', surah: "QS. An-Nisa' : 12" },
     istri: { arabic: "وَلَهُنَّ الرُُّبُعُ مِمَّا تَرَكْتُمْ إِن لَّمْ يَكُن لَّكُمْ وَلَدٌ", indo: '"Para istri memperoleh seperempat harta jika kamu tidak mempunyai anak..."', surah: "QS. An-Nisa' : 12" },
     ibu: { arabic: "وَلِأَبَوَيْهِ لِكُلِّ وَاحِدٍ مِّنْهُمَا السُّدُسُ مِمَّا تَرَكَ إِن كَانَ لَهُۥ وَلَدٌ", indo: '"Dan untuk kedua ibu-bapak, bagi masing-masingnya seperenam..."', surah: "QS. An-Nisa' : 11" },
     ayah: { arabic: "وَلِأَبَوَيْهِ لِكُلِّ وَاحِدٍ مِّنْهُمَا السُّدُسُ", indo: '"Bagi masing-masing ibu-bapak seperenam dari harta..."', surah: "QS. An-Nisa' : 11" },
     anakLaki: { arabic: "يُوصِيكُمُ اللَّهُ فِي أَوْلَادِكُمْ ۖ لِلَّذَكَرِ مِثْلُ حَظِّ الْأُنثَيَيْنِ", indo: '"Bagian seorang anak lelaki sama dengan bagian dua anak perempuan..."', surah: "QS. An-Nisa' : 11" },
-    anakPerempuan: { arabic: "فَإِن كُنَّ نِسَاءً فَوْقَ اثْنَتَيْنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ", indo: '"Jika anak perempuan lebih dari dua, bagi mereka dua pertiga..."', surah: "QS. An-Nisa' : 11" }
+    anakPerempuan: { arabic: "فَإِن كُنَّ نِسَاءً فَوْقَ اثْنَتَيْنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ", indo: '"Jika anak perempuan lebih dari dua, bagi mereka dua pertiga..."', surah: "QS. An-Nisa' : 11" },
+    saudaraKandungPerempuan: { arabic: "فَإِن كَانَتَا اثْنَتَيْنِ فَلَهُمَا الثُّلُثَانِ مِمَّا تَرَكَ", indo: '"Jika saudara perempuan dua orang, bagi keduanya dua pertiga..."', surah: "QS. An-Nisa' : 176" }
 };
 
 function prosesHitungWaris() {
@@ -346,30 +332,40 @@ function prosesHitungWaris() {
             return parseFloat(angkaBersih) || 0;
         };
 
+        const getValue = (id) => {
+            let el = document.getElementById(id);
+            return el ? el.value : 0;
+        };
+
         const inputData = {
             hartaKotor: parseRupiah('hartaKotor'),
             hutangBiaya: parseRupiah('hutangBiaya'),
             wasiat: parseRupiah('wasiat'),
             suami: document.getElementById('suami')?.checked || false,
-            istri: document.getElementById('istri')?.value || 0,
-            anakLaki: document.getElementById('anakLaki')?.value || 0,
-            anakPerempuan: document.getElementById('anakPerempuan')?.value || 0,
-            cucuLaki: document.getElementById('cucuLaki')?.value || 0,
-            cucuPerempuan: document.getElementById('cucuPerempuan')?.value || 0,
+            istri: getValue('istri'),
+            anakLaki: getValue('anakLaki'),
+            anakPerempuan: getValue('anakPerempuan'),
+            cucuLaki: getValue('cucuLaki'),
+            cucuPerempuan: getValue('cucuPerempuan'),
             ayah: document.getElementById('ayah')?.checked || false,
             ibu: document.getElementById('ibu')?.checked || false,
             kakek: document.getElementById('kakek')?.checked || false,
             nenekAyah: document.getElementById('nenekAyah')?.checked || false,
             nenekIbu: document.getElementById('nenekIbu')?.checked || false,
-            saudaraKandungLaki: document.getElementById('saudaraKandungLaki')?.value || 0,
-            saudaraKandungPerempuan: document.getElementById('saudaraKandungPerempuan')?.value || 0,
-            saudaraSeayahLaki: document.getElementById('saudaraSeayahLaki')?.value || 0,
-            saudaraSeayahPerempuan: document.getElementById('saudaraSeayahPerempuan')?.value || 0,
-            saudaraSeibu: document.getElementById('saudaraSeibu')?.value || 0,
-            pamanKandung: document.getElementById('pamanKandung')?.value || 0,
-            pamanSeayah: document.getElementById('pamanSeayah')?.value || 0,
-            anakPamanKandung: document.getElementById('anakPamanKandung')?.value || 0,
-            anakPamanSeayah: document.getElementById('anakPamanSeayah')?.value || 0
+            saudaraKandungLaki: getValue('saudaraKandungLaki'),
+            saudaraKandungPerempuan: getValue('saudaraKandungPerempuan'),
+            saudaraSeayahLaki: getValue('saudaraSeayahLaki'),
+            saudaraSeayahPerempuan: getValue('saudaraSeayahPerempuan'),
+            saudaraSeibu: getValue('saudaraSeibu'),
+            pamanKandung: getValue('pamanKandung'),
+            pamanSeayah: getValue('pamanSeayah'),
+            anakPamanKandung: getValue('anakPamanKandung'),
+            anakPamanSeayah: getValue('anakPamanSeayah'),
+            
+            // Fetch Input Kasus Khusus v.2
+            anakLuarNikah: getValue('anakLuarNikah'),
+            warisBedaAgama: getValue('warisBedaAgama'),
+            adaHamil: document.getElementById('adaHamil')?.checked || false
         };
 
         const engine = new FaraidhEngineSyafii(inputData);
@@ -415,7 +411,7 @@ function renderHasilUI(hasil) {
             };
 
             cardsHTML += `
-                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:16px; margin-bottom:12px; shadow-sm">
+                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:16px; margin-bottom:12px;">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <div>
                             <h4 style="margin:0; font-size:0.95rem; font-weight:700; color:#1e293b;">${label}</h4>
@@ -450,6 +446,19 @@ function renderHasilUI(hasil) {
         }
     }
 
+    // RENDER CATATAN KHUSUS (ANAK ZINA / BEDA AGAMA / KANDUNGAN)
+    let catatanKhususHTML = "";
+    if (hasil.catatanKhusus && hasil.catatanKhusus.length > 0) {
+        catatanKhususHTML = `
+            <div style="background:#fffbeb; border:1px solid #fef3c7; border-radius:12px; padding:12px; margin-bottom:16px;">
+                <h4 style="font-size:0.8rem; font-weight:bold; color:#92400e; margin:0 0 6px 0;">⚠️ Catatan Status Khusus Fiqh:</h4>
+                <ul style="font-size:0.75rem; color:#78350f; margin:0; padding-left:18px;">
+                    ${hasil.catatanKhusus.map(c => `<li style="margin-bottom:4px;">${c}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+
     let html = `
         <div style="background: linear-gradient(135deg, #064e3b 0%, #047857 100%); color:white; padding:18px; border-radius:18px; margin-bottom:16px;">
             <div style="font-size:0.75rem; opacity:0.9;">Total Harta Bersih Pembagian</div>
@@ -461,6 +470,8 @@ function renderHasilUI(hasil) {
             <div style="font-weight:800; color:#0f172a; font-size:0.85rem;">Sifat Kasus: <span style="color:#047857;">${hasil.statusKalkulasi}</span></div>
             <div style="font-size:0.75rem; color:#475569;">${hasil.penjelasanStatus}</div>
         </div>
+
+        ${catatanKhususHTML}
 
         <h3 style="color:#0f172a; font-size:0.95rem; font-weight:800; margin-bottom:10px;">Rincian Hak Ahli Waris</h3>
         ${cardsHTML}
@@ -481,7 +492,6 @@ function renderHasilUI(hasil) {
 
     container.innerHTML = html;
 
-    // Tampilkan tombol cetak
     const btnCetak = document.getElementById('btnCetakPDF');
     if (btnCetak) btnCetak.classList.remove('hidden');
 
