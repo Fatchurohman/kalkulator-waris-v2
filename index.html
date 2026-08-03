@@ -3,240 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator Waris Syafi'i v2.0 Final</title>
-
+  <title>Kalkulator Waris Syafi'i Premium</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans & Amiri -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-arabic { font-family: 'Amiri', serif; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between p-3 sm:p-6">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between p-2 sm:p-6">
 
-  <div class="max-w-3xl w-full mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-xl overflow-hidden p-5 sm:p-8">
+  <!-- MAIN CONTAINER (ELEGANT FLOATING CARD) -->
+  <div class="max-w-3xl w-full mx-auto bg-white rounded-[2.5rem] border border-slate-200/80 shadow-2xl shadow-emerald-950/10 overflow-hidden">
     
-    <!-- HEADER -->
-    <div class="text-center border-b border-slate-100 pb-5 mb-6">
-      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold mb-2 border border-emerald-100">
-        <span>🕌</span> Faraidh Mazhab Syafi'i v2.0 Engine
-      </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Kalkulator Waris Islam v2</h1>
-      <p class="text-xs sm:text-sm text-slate-500 mt-1">Mendukung Kasus Normal, 'Aul, Radd, Gharrawain, & Status Khusus Fiqh</p>
-      
-      <!-- BADGE DEVELOPER (Pilihan 1: Glassmorphism & Emerald Accent) -->
-      <div class="inline-flex items-center gap-2 mt-3 px-3.5 py-1.5 bg-slate-50/80 backdrop-blur-sm border border-slate-200/80 rounded-full shadow-sm hover:shadow-md transition-all duration-300">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span class="text-[11px] font-medium text-slate-500">Developer:</span>
-        <span class="text-[11px] font-bold text-slate-800 tracking-wide">fatur62</span>
+    <!-- 🟢 ELEGANT LUXURY HEADER (HERO BANNER) -->
+    <div class="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-6 sm:p-10 relative overflow-hidden">
+      <!-- Ornamen Dekoratif Latar Belakang -->
+      <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -left-10 -top-10 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 text-center">
+        <!-- Badge Atas -->
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400/20 to-amber-500/10 border border-amber-400/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide backdrop-blur-md mb-3 shadow-inner">
+          <span>🕌</span> Faraidh Mazhab Syafi'i v2.0 Engine
+        </div>
+
+        <!-- Judul Utama -->
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+          Kalkulator Waris <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400">Islam v2</span>
+        </h1>
+
+        <!-- Deskripsi Singkat -->
+        <p class="text-xs sm:text-sm text-emerald-100/80 max-w-lg mx-auto font-normal leading-relaxed">
+          Sistem kalkulasi proporsional sesuai Syariat Faraidh Syafi'i, otomatisasi 'Aul, Radd, Gharrawain, & Status Khusus.
+        </p>
+
+        <!-- Developer Badge -->
+        <div class="mt-4 inline-flex items-center gap-1.5 text-[11px] bg-black/30 border border-white/10 px-3 py-1 rounded-full text-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>developer: <b class="text-amber-300 font-semibold">fatur62</b></span>
+        </div>
       </div>
     </div>
 
-    <form id="formWaris" onsubmit="return false;">
+    <!-- 📝 FORM BODY -->
+    <form id="formWaris" onsubmit="return false;" class="p-5 sm:p-8 space-y-8">
       
       <!-- SEKSI 1: HARTA & TANGGUNGAN -->
-      <div class="mb-6">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
-          <span>1.</span> Data Harta & Tanggungan (Rp)
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">1</span>
+          Data Harta & Tanggungan (Rp)
         </h2>
+
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Total Harta Kotor</label>
-            <input type="text" id="hartaKotor" value="100.000.000" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <!-- Total Harta Kotor -->
+          <div class="sm:col-span-1">
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Total Harta Kotor</label>
+            <div class="relative">
+              <input type="text" id="hartaKotor" value="100.000.000" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-3 bg-white border border-emerald-300 rounded-2xl text-sm font-extrabold text-emerald-900 focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-sm transition-all">
+            </div>
           </div>
+
+          <!-- Hutang & Biaya -->
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Hutang & Biaya Jenazah</label>
-            <input type="text" id="hutangBiaya" value="0" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Hutang & Biaya Jenazah</label>
+            <input type="text" id="hutangBiaya" value="0" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-3 bg-white border border-slate-200 rounded-2xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
           </div>
+
+          <!-- Wasiat -->
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Wasiat (Maks 1/3 Harta)</label>
-            <input type="text" id="wasiat" value="0" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <label class="block text-xs font-semibold text-slate-600 mb-1.5">Wasiat (Maks 1/3 Harta)</label>
+            <input type="text" id="wasiat" value="0" placeholder="0" oninput="formatRupiahInput(this)" class="w-full p-3 bg-white border border-slate-200 rounded-2xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
           </div>
         </div>
       </div>
 
       <!-- SEKSI 2: AHLI WARIS UTAMA -->
-      <div class="mb-6">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
-          <span>2.</span> Ahli Waris Utama (Garis Usul & Furu')
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">2</span>
+          Ahli Waris Utama (Garis Usul & Furu')
         </h2>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all">
-            <span class="text-xs font-bold text-slate-700">💍 Ada Suami?</span>
-            <input type="checkbox" id="suami" onchange="togglePasangan('suami')" class="w-4 h-4 accent-emerald-600">
+          <!-- Checkbox Suami -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">💍 Ada Suami?</span>
+            <input type="checkbox" id="suami" onchange="togglePasangan('suami')" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Jumlah Istri (0-4)</label>
-            <input type="number" id="istri" min="0" max="4" value="0" onchange="togglePasangan('istri')" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <!-- Input Istri -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Jumlah Istri (0-4)</label>
+            <input type="number" id="istri" min="0" max="4" value="0" onchange="togglePasangan('istri')" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">👦 Jumlah Anak Laki-Laki</label>
-            <input type="number" id="anakLaki" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <!-- Anak Laki -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">👦 Jumlah Anak Laki-Laki</label>
+            <input type="number" id="anakLaki" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">👧 Jumlah Anak Perempuan</label>
-            <input type="number" id="anakPerempuan" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <!-- Anak Perempuan -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">👧 Jumlah Anak Perempuan</label>
+            <input type="number" id="anakPerempuan" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
           </div>
 
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all">
-            <span class="text-xs font-bold text-slate-700">👴 Ayah Masih Hidup?</span>
-            <input type="checkbox" id="ayah" class="w-4 h-4 accent-emerald-600">
+          <!-- Ayah -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👴 Ayah Masih Hidup?</span>
+            <input type="checkbox" id="ayah" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
 
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all">
-            <span class="text-xs font-bold text-slate-700">👵 Ibu Masih Hidup?</span>
-            <input type="checkbox" id="ibu" class="w-4 h-4 accent-emerald-600">
+          <!-- Ibu -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👵 Ibu Masih Hidup?</span>
+            <input type="checkbox" id="ibu" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
-
         </div>
       </div>
 
-      <!-- SEKSI 3: CUCU & KAKEK / NENEK -->
-      <div class="mb-6">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
-          <span>3.</span> Cucu & Kakek / Nenek
+      <!-- SEKSI 3: CUCU & NENEK/KAKEK -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">3</span>
+          Cucu & Kakek / Nenek
         </h2>
+        
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Cucu Laki (dr Anak Lk)</label>
-            <input type="number" id="cucuLaki" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Cucu Laki (dr Anak Lk)</label>
+            <input type="number" id="cucuLaki" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Cucu Perempuan (dr Anak Lk)</label>
-            <input type="number" id="cucuPerempuan" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Cucu Perempuan (dr Anak Lk)</label>
+            <input type="number" id="cucuPerempuan" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all">
-            <span class="text-xs font-bold text-slate-700">🧓 Kakek (Ayah dari Ayah)</span>
-            <input type="checkbox" id="kakek" class="w-4 h-4 accent-emerald-600">
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">🧓 Kakek (Ayah dari Ayah)</span>
+            <input type="checkbox" id="kakek" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
 
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all">
-            <span class="text-xs font-bold text-slate-700">👵 Nenek (Ibu dari Ibu)</span>
-            <input type="checkbox" id="nenekIbu" class="w-4 h-4 accent-emerald-600">
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👵 Nenek (Ibu dari Ibu)</span>
+            <input type="checkbox" id="nenekIbu" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
 
-          <label class="flex items-center justify-between p-3 rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-emerald-50/40 cursor-pointer transition-all sm:col-span-2">
-            <span class="text-xs font-bold text-slate-700">👵 Nenek (Ibu dari Ayah)</span>
-            <input type="checkbox" id="nenekAyah" class="w-4 h-4 accent-emerald-600">
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm sm:col-span-2">
+            <span class="text-xs font-bold text-slate-800">👵 Nenek (Ibu dari Ayah)</span>
+            <input type="checkbox" id="nenekAyah" class="w-5 h-5 accent-emerald-800 rounded-md">
           </label>
-
         </div>
       </div>
 
-      <!-- SEKSI 4: SAUDARA & KERABAT LAKI-LAKI -->
-      <div class="mb-6">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-800 border-b border-emerald-100 pb-2 mb-4 flex items-center gap-2">
-          <span>4.</span> Saudara & Kerabat Laki-Laki (Hawasi)
+      <!-- SEKSI 4: SAUDARA & KERABAT -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">4</span>
+          Saudara & Kerabat Laki-Laki (Hawasi)
         </h2>
+        
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sdr Kandung Laki-laki</label>
-            <input type="number" id="saudaraKandungLaki" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sdr Kandung Laki-laki</label>
+            <input type="number" id="saudaraKandungLaki" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sdr Kandung Perempuan</label>
-            <input type="number" id="saudaraKandungPerempuan" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sdr Kandung Perempuan</label>
+            <input type="number" id="saudaraKandungPerempuan" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sdr Seayah Laki-laki</label>
-            <input type="number" id="saudaraSeayahLaki" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sdr Seayah Laki-laki</label>
+            <input type="number" id="saudaraSeayahLaki" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sdr Seayah Perempuan</label>
-            <input type="number" id="saudaraSeayahPerempuan" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sdr Seayah Perempuan</label>
+            <input type="number" id="saudaraSeayahPerempuan" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sdr Seibu (Lk / Pr)</label>
-            <input type="number" id="saudaraSeibu" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sdr Seibu (Lk / Pr)</label>
+            <input type="number" id="saudaraSeibu" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Paman Kandung (Sdr Ayah)</label>
-            <input type="number" id="pamanKandung" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Paman Kandung (Sdr Ayah)</label>
+            <input type="number" id="pamanKandung" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Paman Seayah</label>
-            <input type="number" id="pamanSeayah" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Paman Seayah</label>
+            <input type="number" id="pamanSeayah" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">Sepupu Laki (Anak Paman Kdg)</label>
-            <input type="number" id="anakPamanKandung" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">Sepupu Laki (Anak Paman Kdg)</label>
+            <input type="number" id="anakPamanKandung" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
 
-          <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 flex items-center justify-between sm:col-span-2">
-            <label class="text-xs font-bold text-slate-700">Sepupu Laki (Anak Paman Seayah)</label>
-            <input type="number" id="anakPamanSeayah" min="0" value="0" class="w-16 p-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm sm:col-span-2">
+            <label class="text-xs font-bold text-slate-800">Sepupu Laki (Anak Paman Seayah)</label>
+            <input type="number" id="anakPamanSeayah" min="0" value="0" class="w-14 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
           </div>
-
         </div>
       </div>
 
       <!-- SEKSI 5: STATUS KHUSUS WARIS -->
-      <div class="mb-6 p-4 bg-amber-50/60 border border-amber-200 rounded-2xl">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-900 border-b border-amber-200 pb-2 mb-3 flex items-center gap-2">
-          <span>5.</span> Status Khusus Ahli Waris (Kondisi Luar Biasa)
+      <div class="bg-amber-50/80 p-5 rounded-3xl border border-amber-200/80 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-950 flex items-center gap-2 border-b border-amber-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-amber-800 text-amber-200 flex items-center justify-center text-xs shadow-sm">5</span>
+          Status Khusus Ahli Waris (Kondisi Luar Biasa)
         </h2>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          
-          <div class="p-2.5 rounded-xl border border-amber-200 bg-white flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">👶 Anak Di Luar Nikah (Anak Zina)</label>
-            <input type="number" id="anakLuarNikah" min="0" value="0" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3 rounded-2xl border border-amber-200/80 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">👶 Anak Di Luar Nikah (Anak Zina)</label>
+            <input type="number" id="anakLuarNikah" min="0" value="0" class="w-14 p-1.5 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-center text-amber-900">
           </div>
 
-          <div class="p-2.5 rounded-xl border border-amber-200 bg-white flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-700">🚫 Ahli Waris Beda Agama / Murtad</label>
-            <input type="number" id="warisBedaAgama" min="0" value="0" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-lg text-xs font-bold text-center">
+          <div class="p-3 rounded-2xl border border-amber-200/80 bg-white flex items-center justify-between shadow-sm">
+            <label class="text-xs font-bold text-slate-800">🚫 Ahli Waris Beda Agama / Murtad</label>
+            <input type="number" id="warisBedaAgama" min="0" value="0" class="w-14 p-1.5 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-center text-amber-900">
           </div>
 
-          <label class="flex items-center justify-between p-2.5 rounded-xl border border-amber-200 bg-white cursor-pointer transition-all sm:col-span-2">
-            <span class="text-xs font-bold text-slate-700">🤰 Ada Istri/Ibu Sedang Hamil? (Anak Dalam Kandungan)</span>
-            <input type="checkbox" id="adaHamil" class="w-4 h-4 accent-amber-600">
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-200/80 bg-white hover:border-amber-400 cursor-pointer transition-all shadow-sm sm:col-span-2">
+            <span class="text-xs font-bold text-slate-800">🤰 Ada Istri/Ibu Sedang Hamil? (Anak Dalam Kandungan)</span>
+            <input type="checkbox" id="adaHamil" class="w-5 h-5 accent-amber-700 rounded-md">
           </label>
-
         </div>
       </div>
 
-      <!-- TOMBOL EKSEKUSI -->
-      <button type="button" onclick="prosesHitungWaris()" class="w-full py-4 bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-emerald-700/25 active:scale-98 transition-all">
-        ⚡ Hitung Pembagian Waris
+      <!-- 👑 GOLDEN PREMIUM BUTTON -->
+      <button type="button" onclick="prosesHitungWaris()" class="w-full py-4.5 bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-amber-300 font-extrabold text-sm sm:text-base rounded-2xl shadow-xl shadow-emerald-950/20 active:scale-[0.98] transition-all duration-200 border border-amber-400/30 flex items-center justify-center gap-2">
+        <span>⚡ Hitung Pembagian Waris</span>
       </button>
 
     </form>
 
-    <!-- CONTAINER HASIL OUTPUT -->
-    <div id="hasilOutput" class="mt-8"></div>
+    <!-- HASIL OUTPUT (RENDERED BY SCRIPT.JS) -->
+    <div id="hasilOutput" class="p-5 sm:p-8 pt-0"></div>
 
     <!-- TOMBOL CETAK -->
-    <button id="btnCetakPDF" onclick="window.print()" class="hidden w-full mt-4 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs rounded-xl shadow-md transition-all">
-      🖨️ Cetak / Simpan PDF Hasil Perhitungan
-    </button>
+    <div class="px-5 sm:px-8 pb-8">
+      <button id="btnCetakPDF" onclick="window.print()" class="hidden w-full py-3.5 bg-slate-900 hover:bg-black text-amber-300 font-bold text-xs rounded-2xl shadow-lg transition-all border border-amber-400/20">
+        🖨️ Cetak / Simpan PDF Hasil Perhitungan
+      </button>
+    </div>
 
   </div>
 
-  <!-- HELPER SCRIPT INTERNAL -->
+  <!-- SCRIPT HELPER -->
   <script>
     function formatRupiahInput(input) {
       let value = input.value.replace(/[^0-9]/g, '');
@@ -256,7 +283,7 @@
     }
   </script>
 
-  <!-- FILE ENGINE JAVASCRIPT -->
+  <!-- KONEKSIKAN KE ENGINE SCRIPT.JS -->
   <script src="script.js?v=2.0-final"></script>
 </body>
 </html>
