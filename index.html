@@ -285,5 +285,25 @@
 
   <!-- KONEKSIKAN KE ENGINE SCRIPT.JS -->
   <script src="script.js?v=2.0-final"></script>
+    <!-- SCRIPT PWA REGISTER -->
+  <script>
+    // Hubungkan ke Manifest
+    const linkManifest = document.createElement('link');
+    linkManifest.rel = 'manifest';
+    linkManifest.href = './manifest.json';
+    document.head.appendChild(linkManifest);
+
+    // Register Service Worker untuk Offline Mode
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('PWA Ready & Offline Supported!'))
+          .catch(err => console.log('SW Fail: ', err));
+      });
+    }
+  </script>
+</body>
+</html>
+
 </body>
 </html>
