@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="Waris Syafi'i">
   <title>Kalkulator Waris Syafi'i Premium v2.0</title>
 
-  <!-- Embedded SVG Favicon & App Icon (Tanpa Perlu File Gambar Eksternal) -->
+  <!-- Embedded SVG Favicon & App Icon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ccircle cx='256' cy='256' r='200' fill='none' stroke='%23fbbf24' stroke-width='12' stroke-dasharray='24 12' opacity='0.4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='240'%3E🕌%3C/text%3E%3C/svg%3E">
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='240'%3E🕌%3C/text%3E%3C/svg%3E">
 
@@ -33,6 +33,15 @@
     }
     input[type="number"] {
       -moz-appearance: textfield;
+    }
+
+    /* Animasi Modal */
+    .modal-enter {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     /* Optimasi Cetak PDF (Print Media Query) */
@@ -67,6 +76,18 @@
       <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
       <div class="absolute -left-10 -top-10 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none"></div>
 
+      <!-- Top Bar Navigation (Tombol Menu README) -->
+      <div class="no-print relative z-20 flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+        <div class="inline-flex items-center gap-1.5 text-[11px] bg-black/30 border border-white/10 px-3 py-1.5 rounded-full text-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>dev: <b class="text-amber-300 font-semibold">fatur62</b></span>
+        </div>
+
+        <button type="button" onclick="bukaModalReadme('panduan')" class="inline-flex items-center gap-1.5 bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/40 text-amber-200 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95">
+          <span>📖</span> README & Lisensi MIT
+        </button>
+      </div>
+
       <div class="relative z-10 text-center">
         <p class="font-arabic text-xl sm:text-2xl text-amber-300/90 mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
 
@@ -81,11 +102,6 @@
         <p class="text-xs sm:text-sm text-emerald-100/80 max-w-lg mx-auto font-normal leading-relaxed">
           Sistem kalkulasi proporsional sesuai Syariat Faraidh Syafi'i, otomatisasi Hijab, 'Aul, Radd, Gharrawain, & Status Khusus.
         </p>
-
-        <div class="mt-4 inline-flex items-center gap-1.5 text-[11px] bg-black/30 border border-white/10 px-3 py-1 rounded-full text-emerald-200">
-          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>developer: <b class="text-amber-300 font-semibold">fatur62</b></span>
-        </div>
       </div>
     </div>
 
@@ -310,15 +326,223 @@
 
   </div>
 
-  <footer class="no-print text-center text-xs text-slate-400 py-4">
-    Kalkulator Faraidh Mazhab Syafi'i &bull; Single-File Edition by fatur62
+  <!-- FOOTER DENGAN SHORTCUT MENU README & LICENSE -->
+  <footer class="no-print text-center text-xs text-slate-500 py-5 space-y-2">
+    <div>
+      Kalkulator Faraidh Mazhab Syafi'i v2.0 &bull; Dikembangkan oleh <b class="text-emerald-900">fatur62</b>
+    </div>
+    <div class="flex items-center justify-center gap-4 font-bold text-emerald-800">
+      <button type="button" onclick="bukaModalReadme('panduan')" class="hover:underline cursor-pointer">📖 Petunjuk Penggunaan</button>
+      <span>&bull;</span>
+      <button type="button" onclick="bukaModalReadme('lisensi')" class="hover:underline cursor-pointer">⚖️ Lisensi MIT</button>
+    </div>
   </footer>
 
   <!-- ================================================================= -->
-  <!-- SELURUH ENGINE FARAIDH & DYNAMIC MANIFEST MENYATU DI BAWAH INI    -->
+  <!-- 📖 MODAL POP-UP: MENU README (PETUNJUK PENGGUNAAN & LISENSI MIT)  -->
+  <!-- ================================================================= -->
+  <div id="modalReadme" class="no-print fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6" onclick="tutupModalLuar(event)">
+    <div class="modal-enter bg-white w-full max-w-2xl rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[88vh]">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">📘</span>
+          <div>
+            <h3 class="text-sm sm:text-base font-extrabold text-amber-300">Dokumentasi & Informasi Aplikasi (README)</h3>
+            <p class="text-[11px] text-emerald-200/80">Kalkulator Waris Islam Mazhab Syafi'i v2.0</p>
+          </div>
+        </div>
+        <button type="button" onclick="tutupModalReadme()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-rose-500/80 text-white flex items-center justify-center font-bold text-sm transition-all cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-slate-200 bg-slate-50 px-5 pt-3 gap-2">
+        <button type="button" id="tabBtnPanduan" onclick="gantiTabReadme('panduan')" class="px-4 py-2 text-xs font-extrabold rounded-t-xl border-b-2 border-emerald-800 text-emerald-950 bg-white cursor-pointer transition-all">
+          📖 Petunjuk Penggunaan
+        </button>
+        <button type="button" id="tabBtnFitur" onclick="gantiTabReadme('fitur')" class="px-4 py-2 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 cursor-pointer transition-all">
+          ⚙️ Kaidah Faraidh
+        </button>
+        <button type="button" id="tabBtnLisensi" onclick="gantiTabReadme('lisensi')" class="px-4 py-2 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 cursor-pointer transition-all">
+          ⚖️ MIT License
+        </button>
+      </div>
+
+      <!-- Modal Content (Scrollable) -->
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        
+        <!-- TAB 1: PETUNJUK PENGGUNAAN -->
+        <div id="kontenPanduan" class="space-y-4">
+          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950">
+            <h4 class="font-extrabold text-sm mb-1">🎯 Tentang Aplikasi</h4>
+            <p class="text-xs leading-relaxed">
+              Aplikasi <b>Kalkulator Waris Syafi'i Premium v2.0</b> dirancang untuk membantu umat Muslim menghitung pembagian harta warisan (<i>Al-Irts</i>) secara cepat, transparan, dan sesuai kaidah Fiqih Faraidh Mazhab Imam Asy-Syafi'i.
+            </p>
+          </div>
+
+          <h4 class="font-extrabold text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">📋 Langkah-Langkah Penggunaan:</h4>
+          
+          <ol class="space-y-3 list-decimal list-inside text-xs sm:text-sm">
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Masukkan Data Harta & Tanggungan (Seksi 1):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Isi <b>Total Harta Kotor (Tirkah)</b> milik almarhum/almarhumah setelah pisah harta Gono-Gini (Harta Bersama pasangan).</li>
+                <li>Isi <b>Hutang & Biaya Jenazah (Tajhiz)</b> jika ada. Harta waris hanya dibagikan setelah hutang lunas.</li>
+                <li>Isi <b>Wasiat</b> (jika ada). Sesuai syariat Islam, wasiat kepada non-ahli waris maksimal adalah <b>1/3 (33.33%)</b> dari sisa harta setelah dikurangi hutang. Sistem otomatis memberi peringatan jika melebihi 1/3.</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Pilih Ahli Waris Utama (Seksi 2):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Centang <b>Ada Suami</b> (jika yang wafat adalah istri/wanita), atau isi <b>Jumlah Istri (1–4)</b> (jika yang wafat adalah suami/pria). Sistem otomatis mengunci salah satu agar tidak ganda.</li>
+                <li>Masukkan jumlah <b>Anak Kandung Laki-laki</b> dan <b>Perempuan</b>, serta centang status hidup <b>Ayah</b> & <b>Ibu Kandung</b> pada saat pewaris wafat.</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Pilih Cucu, Kakek/Nenek & Saudara (Seksi 3 & 4):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Isi jumlah cucu (khusus dari jalur Anak Laki-laki), kakek/nenek, serta saudara kandung/seayah/seibu yang masih hidup.</li>
+                <li>Anda tidak perlu bingung siapa yang terhalang (<i>Mahjub</i>), karena sistem akan <b>menyaring otomatis</b> dan menampilkan daftar kerabat yang terhalang beserta alasan fiqihnya.</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Cek Kondisi Khusus & Hitung (Seksi 5):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Isi jika terdapat kondisi khusus seperti anak di luar nikah, kerabat non-muslim, atau istri yang sedang mengandung.</li>
+                <li>Klik tombol <b>"⚡ Hitung Pembagian Waris Sekarang"</b> untuk melihat tabel rincian bagian dan mencetaknya ke dokumen <b>PDF</b>.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <!-- TAB 2: KAIDAH FARAIDH -->
+        <div id="kontenFitur" class="hidden space-y-4 text-xs">
+          <h4 class="font-extrabold text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">⚙️ Fitur Kalkulasi Otomatis Mazhab Syafi'i:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">1. Hijab & Mahjub Hirman</b>
+              Menyeleksi otomatis ahli waris yang gugur haknya karena terhalang oleh kerabat yang lebih dekat (misal: Saudara gugur jika ada Anak Laki-laki atau Ayah).
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">2. Kasus 'Aul (Penyesuaian)</b>
+              Jika total pecahan Dzawil Furudh melebihi 100% (1/1), penyebut dinaikkan secara proporsional sehingga tidak ada ahli waris yang dirugikan.
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">3. Kasus Radd & Baitul Mal</b>
+              Jika harta tersisa dan tidak ada <i>Ashabah</i>, sisa harta dikembalikan proporsional kepada <i>Ashabul Furudh</i> nasabiyah (selain Suami/Istri).
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">4. Kasus Gharrawain ('Umariyatain)</b>
+              Jika ahli waris hanya terdiri dari Pasangan (Suami/Istri) + Ibu + Ayah, maka Ibu mendapat <b>1/3 dari sisa</b> setelah bagian pasangan, dan Ayah mendapat 2/3 sisanya.
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: MIT LICENSE -->
+        <div id="kontenLisensi" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-800">⚖️ Lisensi Perangkat Lunak (MIT License)</span>
+            <span class="bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full text-[11px] font-bold">Open Source</span>
+          </div>
+
+          <pre class="p-4 rounded-2xl bg-slate-900 text-emerald-300 font-mono text-[11px] sm:text-xs overflow-x-auto leading-relaxed border border-slate-800 select-all">MIT License
+
+Copyright (c) 2026 Fatchurohman (fatur62)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+
+          <p class="text-xs text-slate-500 italic">
+            *Dengan lisensi MIT ini, siapa pun bebas menggunakan, mempelajari, dan menyebarluaskan aplikasi ini untuk kemaslahatan umat dengan tetap mencantumkan atribusi pengembang asli (<b>fatur62</b>).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 border-t border-slate-200 px-5 py-3.5 flex items-center justify-between">
+        <span class="text-[11px] text-slate-500">Versi 2.0 Single-File &bull; MIT Licensed</span>
+        <button type="button" onclick="tutupModalReadme()" class="px-5 py-2 bg-emerald-900 hover:bg-emerald-950 text-amber-300 font-bold text-xs rounded-xl transition-all cursor-pointer">
+          Mengerti & Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- SELURUH ENGINE FARAIDH, MODAL README & DYNAMIC MANIFEST           -->
   <!-- ================================================================= -->
   <script>
-    // 1. Injeksi Web Manifest Dinamis (Tanpa Perlu File manifest.json Eksternal)
+    // 1. Fungsi Kontrol Modal README & Lisensi MIT
+    function bukaModalReadme(tab = 'panduan') {
+      document.getElementById('modalReadme').classList.remove('hidden');
+      gantiTabReadme(tab);
+    }
+
+    function tutupModalReadme() {
+      document.getElementById('modalReadme').classList.add('hidden');
+    }
+
+    function tutupModalLuar(event) {
+      if (event.target.id === 'modalReadme') {
+        tutupModalReadme();
+      }
+    }
+
+    function gantiTabReadme(tabName) {
+      const tabs = ['panduan', 'fitur', 'lisensi'];
+      const mapKonten = {
+        panduan: 'kontenPanduan',
+        fitur: 'kontenFitur',
+        lisensi: 'kontenLisensi'
+      };
+      const mapBtn = {
+        panduan: 'tabBtnPanduan',
+        fitur: 'tabBtnFitur',
+        lisensi: 'tabBtnLisensi'
+      };
+
+      tabs.forEach(t => {
+        const kontenEl = document.getElementById(mapKonten[t]);
+        const btnEl = document.getElementById(mapBtn[t]);
+        if (t === tabName) {
+          kontenEl.classList.remove('hidden');
+          btnEl.className = 'px-4 py-2 text-xs font-extrabold rounded-t-xl border-b-2 border-emerald-800 text-emerald-950 bg-white cursor-pointer transition-all';
+        } else {
+          kontenEl.classList.add('hidden');
+          btnEl.className = 'px-4 py-2 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 cursor-pointer transition-all';
+        }
+      });
+    }
+
+    // Tutup modal dengan tombol ESC
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') tutupModalReadme();
+    });
+
+    // 2. Injeksi Web Manifest Dinamis
     (function injectDynamicManifest() {
       const svgIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='250'%3E🕌%3C/text%3E%3C/svg%3E";
       const manifestData = {
@@ -341,7 +565,7 @@
       document.head.appendChild(link);
     })();
 
-    // 2. Helper Format & Parse Angka Rupiah
+    // 3. Helper Format & Parse Angka Rupiah
     function parseRupiah(str) {
       if (!str) return 0;
       const clean = String(str).replace(/[^0-9]/g, '');
@@ -416,7 +640,7 @@
       updatePreviewTirkah();
     }
 
-    // 3. CORE ENGINE FARAIDH MAZHAB SYAFI'I
+    // 4. CORE ENGINE FARAIDH MAZHAB SYAFI'I
     function prosesHitungWaris() {
       const hartaKotor = parseRupiah(document.getElementById('hartaKotor').value);
       const hutangBiaya = parseRupiah(document.getElementById('hutangBiaya').value);
@@ -765,14 +989,14 @@
       container.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // 4. Smart Check Service Worker (Hanya daftar jika file sw.js benar-benar ada di repo, bebas error 404)
+    // 5. Smart Check Service Worker
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       window.addEventListener('load', () => {
         fetch('./sw.js', { method: 'HEAD' })
           .then(res => {
             if (res.ok) navigator.serviceWorker.register('./sw.js');
           })
-          .catch(() => {}); // Abaikan dengan tenang jika murni memakai 1 file index.html saja
+          .catch(() => {});
       });
     }
   </script>
