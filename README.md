@@ -1,23 +1,44 @@
-🕌 Kalkulator Waris Syafi'i Premium v2.0 (Single-File Engine)
-​Aplikasi web interaktif modern untuk kalkulasi pembagian harta warisan Islam sesuai dengan syariat Faraidh berdasarkan Mazhab Syafi'i. Dibangun dengan pendekatan Single-File Architecture yang bersih, responsif, dan kaya fitur tanpa memerlukan dependensi server eksternal.
-​✨ Fitur Utama & Logika Faraidh
-​Mesin Perhitungan Faraidh Syafi'i Komprehensif: Mendukung perhitungan bagian tetap (Ashabul Furudh), sisa harta (Ashabah), hingga aturan khusus.
-​Otomatisasi Aturan Lanjutan:
-​Hijab (Mahjub Hirman): Otomatis menyaring dan mendeteksi kerabat yang terhalang hak warisnya (misalnya cucu terhalang anak laki-laki, kakek oleh ayah, dll.).
-​'Aul & Radd: Menyesuaikan total bagian secara proporsional jika bagian melebihi 100% ('Aul) atau mengembalikannya kepada Ashabul Furudh jika ada sisa tanpa Ashabah (Radd).
-​Gharrawain / 'Umariyatain: Penanganan khusus kasus pembagian untuk Ibu ketika bersama ayah dan salah satu pasangan (suami/istri).
-​Manajemen Harta & Batasan Syariat:
-​Perhitungan Tirkah bersih setelah dikurangi hutang dan biaya pengurusan jenazah.
-​Validasi otomatis batas maksimal wasiat (maksimal \frac{1}{3} dari harta bersih setelah hutang).
-​Kondisi Khusus Ahli Waris:
-​Penanganan nasab anak luar nikah (hanya mewarisi dari jalur ibu).
-​Validasi penghalang mutlak waris karena perbedaan agama atau murtad.
-​Pengelolaan status mauquf untuk janin dalam kandungan (Al-Haml).
-​Cetak & Ekspor PDF: Fitur print-friendly bawaan yang dioptimalkan untuk mencetak laporan hasil perhitungan secara profesional langsung dari browser.
-​Progressive Web App (PWA) Ready: Dilengkapi injeksi Web Manifest dinamis sehingga dapat diinstal langsung di perangkat mobile atau desktop sebagai aplikasi mandiri.
-​🛠️ Teknologi yang Digunakan
-​HTML5 & Tailwind CSS (via CDN): Desain antarmuka modern, elegan, minimalis dengan nuansa Islami (Emerald & Gold).
-​Vanilla JavaScript (ES6+): Logika kalkulasi matematika faraidh dan manipulasi DOM sisi klien (client-side).
-​Google Fonts: Menggunakan kombinasi Plus Jakarta Sans untuk keterbacaan UI dan Amiri untuk kaligrafi teks Arab.
-​🚀 Cara Menjalankan (Installation & Usage)
-​Karena aplikasi ini dibangun menggunakan konsep Single-File Engine (seluruh kode HTML, CSS, dan JavaScript menyatu di dalam satu file index.html), cara menjalankannya sangat mudah:
+# 🕌 Kalkulator Waris Syafi'i Premium v2.0
+
+> **Single-File Islamic Faraidh Calculation Engine**  
+> Sistem kalkulasi pembagian harta warisan secara proporsional sesuai Syariat Islam berdasarkan Mazhab Syafi'i, dilengkapi otomatisasi Hijab, 'Aul, Radd, Gharrawain, hingga penanganan status khusus.
+
+![License](https://img.shields.io/badge/license-MIT-emerald.svg)
+![Version](https://img.shields.io/badge/version-2.0-amber.svg)
+![Developer](https://img.shields.io/badge/developer-fatur62-blue.svg)
+
+---
+
+## ✨ Fitur Unggulan
+
+* **🕌 Sesuai Mazhab Syafi'i:** Perhitungan hukum Faraidh merujuk pada ketentuan fikih Syafi'i yang akurat.
+* **⚡ Arsitektur Single-File:** Seluruh antarmuka (UI), logika perhitungan, styling (Tailwind CSS), hingga ikon SVG terintegrasi dalam satu file `index.html` yang ringan dan mandiri tanpa *dependency* server yang rumit.
+* **🔒 Otomatisasi Hukum Waris Kompleks:**
+  * **Al-Hijab (Mahjub Hirman):** Otomatis menyaring kerabat yang terhalang hak warisnya (misalnya cucu terhalang anak laki-laki, kakek terhalang ayah, dll.).
+  * **Kasus Khusus `'Aul & Radd`:** Menyesuaikan proporsi pembagian secara otomatis jika total bagian melebihi 1 (Aul) atau bersisa (Radd).
+  * **Kasus `Gharrawain` / 'Umariyatain:** Penanganan khusus untuk pembagian bagian ibu bersama ayah dan pasangan.
+* **📝 Pengecekan Kondisi & Status Khusus:**
+  * Validasi batas maksimal wasiat syariat (1/3 dari harta setelah hutang).
+  * Pengaturan anak di luar nikah (nasab jalur ibu).
+  * Validasi kerabat non-muslim/murtad (terhalang waris).
+  * Opsi penahanan porsi (*Mauquf*) untuk janin dalam kandungan.
+* **🖨️ Cetak & Ekspor PDF:** Fitur cetak ramah media (*Print Media Optimized*) untuk menghasilkan laporan pembagian waris yang rapi dan profesional.
+* **📱 PWA Ready:** Dilengkapi injeksi Web Manifest dinamis sehingga dapat diinstal sebagai aplikasi di perangkat seluler maupun desktop.
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+* **HTML5 & JavaScript (ES6+):** Fondasi struktur dan mesin logika kalkulasi waris sisi klien.
+* **Tailwind CSS (CDN):** Kerangka kerja CSS modern untuk antarmuka yang bersih, elegan, dan responsif.
+* **Google Fonts:** Menggunakan *Plus Jakarta Sans* untuk keterbacaan teks utama dan *Amiri* untuk teks bernuansa Islami.
+
+---
+
+## 🚀 Cara Menjalankan (Installation & Usage)
+
+Karena aplikasi ini berformat **Single-File Engine**, kamu bisa langsung menjalankannya dengan sangat mudah:
+
+1. **Clone repository ini:**
+   ```bash
+   git clone [https://github.com/username/nama-repo-kamu.git](https://github.com/username/nama-repo-kamu.git)
