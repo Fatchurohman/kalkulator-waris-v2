@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#022c22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Waris Syafi'i">
+  <title>Kalkulator Waris Syafi'i Premium v2.2 (Ultimate Edition)</title>
+
+  <!-- Embedded SVG Favicon & App Icon (Tanpa Perlu File Gambar Eksternal) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ccircle cx='256' cy='256' r='200' fill='none' stroke='%23fbbf24' stroke-width='12' stroke-dasharray='24 12' opacity='0.4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='240'%3E🕌%3C/text%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='240'%3E🕌%3C/text%3E%3C/svg%3E">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Amiri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-arabic { font-family: 'Amiri', serif; }
+
+    /* Hilangkan panah spinner default pada input number */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    /* Animasi Modal */
+    .modal-enter {
+      animation: fadeIn 0.2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Optimasi Cetak PDF (Print Media Query) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-container {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between p-2 sm:p-6 pb-24">
+
+  <!-- MAIN CONTAINER (ELEGANT FLOATING CARD) -->
+  <div class="print-container max-w-3xl w-full mx-auto bg-white rounded-[2.5rem] border border-slate-200/80 shadow-2xl shadow-emerald-950/10 overflow-hidden">
+    
+    <!-- 🟢 ELEGANT LUXURY HEADER (HERO BANNER) -->
+    <div class="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-6 sm:p-10 relative overflow-hidden">
+      <!-- Ornamen Dekoratif Latar Belakang -->
+      <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -left-10 -top-10 w-40 h-40 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 text-center">
+        <!-- Kaligrafi Basmalah -->
+        <p class="font-arabic text-xl sm:text-2xl text-amber-300/90 mb-2">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+
+        <!-- Badge Atas -->
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400/20 to-amber-500/10 border border-amber-400/30 text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide backdrop-blur-md mb-3 shadow-inner">
+          <span>🕌</span> Faraidh Mazhab Syafi'i v2.2 Ultimate Engine
+        </div>
+
+        <!-- Judul Utama -->
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+          Kalkulator Waris <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400">Islam v2</span>
+        </h1>
+
+        <!-- Deskripsi Singkat -->
+        <p class="text-xs sm:text-sm text-emerald-100/80 max-w-lg mx-auto font-normal leading-relaxed">
+          Sistem kalkulasi proporsional sesuai Syariat Faraidh Syafi'i, otomatisasi Hijab, 'Aul, Radd, Gharrawain, Musyarakah, Akdariyyah & Status Khusus.
+        </p>
+
+        <!-- Developer Badge -->
+        <div class="mt-4 inline-flex items-center gap-1.5 text-[11px] bg-black/30 border border-white/10 px-3 py-1 rounded-full text-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>developer: <b class="text-amber-300 font-semibold">fatur62</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌟 MENU BAR UTAMA (README, KAIDAH FARAIDH & LISENSI MIT) -->
+    <div class="no-print bg-emerald-950/95 border-t border-amber-400/30 px-4 py-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-3 shadow-md">
+      <button type="button" onclick="bukaModalReadme('panduan')" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-2xl shadow-lg shadow-amber-500/20 active:scale-95 transition-all cursor-pointer">
+        <span>📖</span> Menu README (Petunjuk)
+      </button>
+
+      <button type="button" onclick="bukaModalReadme('fitur')" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-emerald-900 hover:bg-emerald-800 text-amber-200 border border-amber-400/40 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl active:scale-95 transition-all cursor-pointer">
+        <span>⚙️</span> 6 Kasus Istimewa
+      </button>
+
+      <button type="button" onclick="bukaModalReadme('lisensi')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-emerald-200 border border-white/15 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl active:scale-95 transition-all cursor-pointer">
+        <span>⚖️</span> Lisensi MIT
+      </button>
+    </div>
+
+    <!-- 📝 FORM BODY -->
+    <form id="formWaris" onsubmit="return false;" class="no-print p-5 sm:p-8 space-y-8">
+
+      <!-- 🧪 PANEL SIMULASI CEPAT: KASUS DI LUAR WARIS NORMAL (SEKALI KLIK) -->
+      <div class="bg-gradient-to-br from-emerald-50 via-teal-50/60 to-amber-50/50 p-4 sm:p-5 rounded-3xl border border-emerald-200/80 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-emerald-200/60 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🧪</span>
+            <h3 class="text-xs sm:text-sm font-extrabold text-emerald-950 uppercase tracking-wider">
+              Simulasi Cepat Kasus Istimewa (Di Luar Waris Normal)
+            </h3>
+          </div>
+          <span class="text-[11px] font-semibold text-emerald-700">Klik tombol untuk mengisi & menghitung otomatis:</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <button type="button" onclick="muatPresetKasus('aul')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">1. Kasus 'Aul (AM 24→27)</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Istri, Ayah, Ibu, 2 Anak Pr</div>
+          </button>
+
+          <button type="button" onclick="muatPresetKasus('radd')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">2. Kasus Radd (Sisa Harta)</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Suami, Ibu, 1 Anak Pr</div>
+          </button>
+
+          <button type="button" onclick="muatPresetKasus('gharrawain')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">3. Kasus Gharrawain</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Suami, Ibu (1/3 Sisa), Ayah</div>
+          </button>
+
+          <button type="button" onclick="muatPresetKasus('musyarakah')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">4. Kasus Musyarakah</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Suami, Ibu, 2 Sdr Seibu, 1 Sdr Kdg Lk</div>
+          </button>
+
+          <button type="button" onclick="muatPresetKasus('akdariyyah')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">5. Kasus Al-Akdariyyah</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Suami, Ibu, Kakek, 1 Sdr Kdg Pr</div>
+          </button>
+
+          <button type="button" onclick="muatPresetKasus('takmilah')" class="p-2.5 rounded-2xl bg-white hover:bg-emerald-900 hover:text-white border border-emerald-200 text-left transition-all shadow-sm group cursor-pointer">
+            <div class="text-xs font-extrabold text-emerald-900 group-hover:text-amber-300">6. Takmilah & Ma'al Ghair</div>
+            <div class="text-[10px] text-slate-500 group-hover:text-emerald-100 mt-0.5">Istri, 1 Anak Pr, 1 Cucu Pr, 1 Sdr Pr</div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- SEKSI 1: HARTA & TANGGUNGAN -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">1</span>
+            Data Harta & Tanggungan (Rp)
+          </h2>
+          <button type="button" onclick="resetForm()" class="text-[11px] font-bold text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 px-3 py-1 rounded-full transition-all cursor-pointer">
+            🔄 Reset Form
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Total Harta Kotor -->
+          <div>
+            <label for="hartaKotor" class="block text-xs font-bold text-slate-700 mb-1.5">Total Harta Kotor (Tirkah)</label>
+            <input type="text" id="hartaKotor" inputmode="numeric" value="100.000.000" placeholder="0" oninput="formatRupiahInput(this); updatePreviewTirkah();" class="w-full p-3 bg-white border border-emerald-300 rounded-2xl text-sm font-extrabold text-emerald-900 focus:outline-none focus:ring-2 focus:ring-amber-400 shadow-sm transition-all">
+          </div>
+
+          <!-- Hutang & Biaya -->
+          <div>
+            <label for="hutangBiaya" class="block text-xs font-semibold text-slate-600 mb-1.5">Hutang & Biaya Jenazah</label>
+            <input type="text" id="hutangBiaya" inputmode="numeric" value="0" placeholder="0" oninput="formatRupiahInput(this); updatePreviewTirkah();" class="w-full p-3 bg-white border border-slate-200 rounded-2xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
+          </div>
+
+          <!-- Wasiat -->
+          <div>
+            <label for="wasiat" class="block text-xs font-semibold text-slate-600 mb-1.5">Wasiat (Maks 1/3 Sisa)</label>
+            <input type="text" id="wasiat" inputmode="numeric" value="0" placeholder="0" oninput="formatRupiahInput(this); updatePreviewTirkah();" class="w-full p-3 bg-white border border-slate-200 rounded-2xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
+          </div>
+        </div>
+
+        <!-- Live Preview Harta Bersih -->
+        <div class="p-3.5 rounded-2xl bg-emerald-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-300 text-base">💰</span>
+            <span class="text-emerald-100/90 font-medium">Harta Bersih Siap Waris (Al-Irts):</span>
+          </div>
+          <span id="previewHartaBersih" class="text-sm sm:text-base font-extrabold text-amber-300 tracking-wide">Rp 100.000.000</span>
+        </div>
+
+        <div id="warningWasiat" class="hidden p-3 rounded-2xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-semibold flex items-center justify-between gap-2">
+          <span>⚠️ Wasiat melebihi batas syariat 1/3 dari harta setelah hutang!</span>
+          <button type="button" onclick="sesuaikanWasiatMaks()" class="shrink-0 bg-amber-800 text-amber-100 px-2.5 py-1 rounded-xl text-[11px] font-bold hover:bg-amber-900 cursor-pointer">Potong ke 1/3</button>
+        </div>
+      </div>
+
+      <!-- SEKSI 2: AHLI WARIS UTAMA -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">2</span>
+          Ahli Waris Utama (Garis Usul & Furu')
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Checkbox Suami -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">💍 Ada Suami? <span class="text-[10px] font-normal text-slate-400">(Pewaris Wanita)</span></span>
+            <input type="checkbox" id="suami" onchange="togglePasangan('suami')" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+
+          <!-- Input Istri -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="istri" class="text-xs font-bold text-slate-800">👰 Jumlah Istri (0-4)</label>
+            <input type="number" id="istri" min="0" max="4" value="0" oninput="clampNumber(this, 0, 4); togglePasangan('istri')" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
+          </div>
+
+          <!-- Anak Laki -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="anakLaki" class="text-xs font-bold text-slate-800">👦 Jumlah Anak Laki-Laki</label>
+            <input type="number" id="anakLaki" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
+          </div>
+
+          <!-- Anak Perempuan -->
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="anakPerempuan" class="text-xs font-bold text-slate-800">👧 Jumlah Anak Perempuan</label>
+            <input type="number" id="anakPerempuan" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center text-slate-900">
+          </div>
+
+          <!-- Ayah -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👴 Ayah Kandung Hidup?</span>
+            <input type="checkbox" id="ayah" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+
+          <!-- Ibu -->
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👵 Ibu Kandung Hidup?</span>
+            <input type="checkbox" id="ibu" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+        </div>
+      </div>
+
+      <!-- SEKSI 3: CUCU & NENEK/KAKEK -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">3</span>
+          Cucu (Garis Anak Laki) & Kakek / Nenek
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="cucuLaki" class="text-xs font-bold text-slate-800">👦 Cucu Laki (dr Anak Lk)</label>
+            <input type="number" id="cucuLaki" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="cucuPerempuan" class="text-xs font-bold text-slate-800">👧 Cucu Perempuan (dr Anak Lk)</label>
+            <input type="number" id="cucuPerempuan" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">🧓 Kakek Shahih (Ayah dr Ayah)</span>
+            <input type="checkbox" id="kakek" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm">
+            <span class="text-xs font-bold text-slate-800">👵 Nenek (Ibu dari Ibu)</span>
+            <input type="checkbox" id="nenekIbu" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-emerald-500 cursor-pointer transition-all shadow-sm sm:col-span-2">
+            <span class="text-xs font-bold text-slate-800">👵 Nenek (Ibu dari Ayah)</span>
+            <input type="checkbox" id="nenekAyah" class="w-5 h-5 accent-emerald-800 rounded-md cursor-pointer">
+          </label>
+        </div>
+      </div>
+
+      <!-- SEKSI 4: SAUDARA & KERABAT -->
+      <div class="bg-slate-50/80 p-5 rounded-3xl border border-slate-200/60 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-emerald-950 flex items-center gap-2 border-b border-slate-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center text-xs shadow-sm">4</span>
+          Saudara & Kerabat Laki-Laki (Hawasyi)
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="saudaraKandungLaki" class="text-xs font-bold text-slate-800">Sdr Kandung Laki-laki</label>
+            <input type="number" id="saudaraKandungLaki" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="saudaraKandungPerempuan" class="text-xs font-bold text-slate-800">Sdr Kandung Perempuan</label>
+            <input type="number" id="saudaraKandungPerempuan" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="saudaraSeayahLaki" class="text-xs font-bold text-slate-800">Sdr Seayah Laki-laki</label>
+            <input type="number" id="saudaraSeayahLaki" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="saudaraSeayahPerempuan" class="text-xs font-bold text-slate-800">Sdr Seayah Perempuan</label>
+            <input type="number" id="saudaraSeayahPerempuan" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="saudaraSeibu" class="text-xs font-bold text-slate-800">Sdr Seibu (Lk / Pr)</label>
+            <input type="number" id="saudaraSeibu" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="pamanKandung" class="text-xs font-bold text-slate-800">Paman Kandung (Sdr Ayah)</label>
+            <input type="number" id="pamanKandung" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="pamanSeayah" class="text-xs font-bold text-slate-800">Paman Seayah</label>
+            <input type="number" id="pamanSeayah" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <label for="anakPamanKandung" class="text-xs font-bold text-slate-800">Sepupu Lk (Anak Paman Kdg)</label>
+            <input type="number" id="anakPamanKandung" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center justify-between shadow-sm sm:col-span-2">
+            <label for="anakPamanSeayah" class="text-xs font-bold text-slate-800">Sepupu Lk (Anak Paman Seayah)</label>
+            <input type="number" id="anakPamanSeayah" min="0" max="50" value="0" oninput="clampNumber(this, 0, 50)" class="w-16 p-1.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-center">
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKSI 5: STATUS KHUSUS WARIS -->
+      <div class="bg-amber-50/80 p-5 rounded-3xl border border-amber-200/80 shadow-sm space-y-4">
+        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-950 flex items-center gap-2 border-b border-amber-200 pb-3">
+          <span class="w-6 h-6 rounded-full bg-amber-800 text-amber-200 flex items-center justify-center text-xs shadow-sm">5</span>
+          Status Khusus Ahli Waris (Kondisi Luar Biasa)
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3 rounded-2xl border border-amber-200/80 bg-white flex items-center justify-between shadow-sm">
+            <label for="anakLuarNikah" class="text-xs font-bold text-slate-800">👶 Anak Luar Nikah (Nasab Ibu)</label>
+            <input type="number" id="anakLuarNikah" min="0" max="20" value="0" oninput="clampNumber(this, 0, 20)" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-center text-amber-900">
+          </div>
+
+          <div class="p-3 rounded-2xl border border-amber-200/80 bg-white flex items-center justify-between shadow-sm">
+            <label for="warisBedaAgama" class="text-xs font-bold text-slate-800">🚫 Kerabat Non-Muslim / Murtad</label>
+            <input type="number" id="warisBedaAgama" min="0" max="20" value="0" oninput="clampNumber(this, 0, 20)" class="w-16 p-1.5 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-center text-amber-900">
+          </div>
+
+          <label class="flex items-center justify-between p-3.5 rounded-2xl border border-amber-200/80 bg-white hover:border-amber-400 cursor-pointer transition-all shadow-sm sm:col-span-2">
+            <span class="text-xs font-bold text-slate-800">🤰 Ada Istri/Ibu Sedang Hamil? (Tahan/Mauquf untuk Janin)</span>
+            <input type="checkbox" id="adaHamil" class="w-5 h-5 accent-amber-700 rounded-md cursor-pointer">
+          </label>
+        </div>
+      </div>
+
+      <!-- 👑 GOLDEN PREMIUM BUTTON -->
+      <button type="button" onclick="prosesHitungWaris()" class="w-full py-4 bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 hover:from-emerald-900 hover:to-teal-900 text-amber-300 font-extrabold text-sm sm:text-base rounded-2xl shadow-xl shadow-emerald-950/20 active:scale-[0.98] transition-all duration-200 border border-amber-400/30 flex items-center justify-center gap-2 cursor-pointer">
+        <span>⚡ Hitung Pembagian Waris Sekarang</span>
+      </button>
+
+    </form>
+
+    <!-- HASIL OUTPUT -->
+    <div id="hasilOutput" class="p-5 sm:p-8 pt-0"></div>
+
+    <!-- TOMBOL CETAK -->
+    <div class="no-print px-5 sm:px-8 pb-8">
+      <button id="btnCetakPDF" onclick="window.print()" class="hidden w-full py-3.5 bg-slate-900 hover:bg-black text-amber-300 font-bold text-xs rounded-2xl shadow-lg transition-all border border-amber-400/20 cursor-pointer">
+        🖨️ Cetak / Simpan PDF Hasil Perhitungan
+      </button>
+    </div>
+
+  </div>
+
+  <!-- FOOTER DENGAN SHORTCUT MENU README & LICENSE -->
+  <footer class="no-print text-center text-xs text-slate-500 py-6 space-y-2">
+    <div>
+      Kalkulator Faraidh Mazhab Syafi'i v2.2 &bull; Dikembangkan oleh <b class="text-emerald-900">fatur62</b>
+    </div>
+    <div class="flex items-center justify-center gap-4 font-bold text-emerald-800">
+      <button type="button" onclick="bukaModalReadme('panduan')" class="hover:underline cursor-pointer">📖 Buka Petunjuk Penggunaan</button>
+      <span>&bull;</span>
+      <button type="button" onclick="bukaModalReadme('fitur')" class="hover:underline cursor-pointer">⚙️ 6 Kasus Istimewa</button>
+      <span>&bull;</span>
+      <button type="button" onclick="bukaModalReadme('lisensi')" class="hover:underline cursor-pointer">⚖️ Lihat Lisensi MIT</button>
+    </div>
+  </footer>
+
+  <!-- 🌟 FLOATING ACTION BUTTON (POJOK KANAN BAWAH AGAR SELALU TERLIHAT) -->
+  <div class="no-print fixed bottom-4 right-4 z-40">
+    <button type="button" onclick="bukaModalReadme('panduan')" class="flex items-center gap-2 bg-emerald-950 hover:bg-emerald-900 text-amber-300 border-2 border-amber-400 px-4 py-3 rounded-full shadow-2xl font-extrabold text-xs sm:text-sm transition-all hover:scale-105 active:scale-95 cursor-pointer">
+      <span>📖</span> README & MIT
+    </button>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- 📖 MODAL POP-UP: MENU README (PETUNJUK, KAIDAH & LISENSI MIT)     -->
+  <!-- ================================================================= -->
+  <div id="modalReadme" class="no-print fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6" onclick="tutupModalLuar(event)">
+    <div class="modal-enter bg-white w-full max-w-2xl rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[88vh]">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-5 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">📘</span>
+          <div>
+            <h3 class="text-sm sm:text-base font-extrabold text-amber-300">Menu README: Petunjuk, Kaidah & Lisensi</h3>
+            <p class="text-[11px] text-emerald-200/80">Kalkulator Waris Islam Mazhab Syafi'i v2.2</p>
+          </div>
+        </div>
+        <button type="button" onclick="tutupModalReadme()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-rose-500/80 text-white flex items-center justify-center font-bold text-sm transition-all cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="flex border-b border-slate-200 bg-slate-100 px-4 pt-3 gap-1.5 overflow-x-auto">
+        <button type="button" id="tabBtnPanduan" onclick="gantiTabReadme('panduan')" class="px-4 py-2.5 text-xs font-extrabold rounded-t-xl border-b-2 border-emerald-800 text-emerald-950 bg-white cursor-pointer transition-all shrink-0">
+          📖 Petunjuk Penggunaan
+        </button>
+        <button type="button" id="tabBtnFitur" onclick="gantiTabReadme('fitur')" class="px-4 py-2.5 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 cursor-pointer transition-all shrink-0">
+          ⚙️ 6 Kasus Istimewa
+        </button>
+        <button type="button" id="tabBtnLisensi" onclick="gantiTabReadme('lisensi')" class="px-4 py-2.5 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 cursor-pointer transition-all shrink-0">
+          ⚖️ License MIT
+        </button>
+      </div>
+
+      <!-- Modal Content (Scrollable) -->
+      <div class="p-5 sm:p-6 overflow-y-auto space-y-5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        
+        <!-- TAB 1: PETUNJUK PENGGUNAAN -->
+        <div id="kontenPanduan" class="space-y-4">
+          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950">
+            <h4 class="font-extrabold text-sm mb-1">🎯 Tentang Aplikasi</h4>
+            <p class="text-xs leading-relaxed">
+              Aplikasi <b>Kalkulator Waris Syafi'i Premium v2.2</b> dirancang untuk menghitung pembagian harta warisan (<i>Al-Irts</i>) secara proporsional, transparan, dan akurat sesuai Fiqih Faraidh Mazhab Imam Asy-Syafi'i.
+            </p>
+          </div>
+
+          <h4 class="font-extrabold text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">📋 Langkah-Langkah Penggunaan:</h4>
+          
+          <ol class="space-y-3 list-decimal list-inside text-xs sm:text-sm">
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Masukkan Data Harta & Tanggungan (Seksi 1):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Isi <b>Total Harta Kotor (Tirkah)</b> milik almarhum/almarhumah setelah dipisahkan dari harta gono-gini pasangan.</li>
+                <li>Isi <b>Hutang & Biaya Jenazah (Tajhiz)</b> jika ada.</li>
+                <li>Isi <b>Wasiat</b> (jika ada). Sesuai syariat Islam, batas maksimal wasiat adalah <b>1/3 (33.33%)</b> dari sisa harta setelah hutang.</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Pilih Ahli Waris Utama (Seksi 2):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Centang <b>Ada Suami</b> (jika pewaris wanita) atau isi <b>Jumlah Istri (1–4)</b> (jika pewaris pria).</li>
+                <li>Masukkan jumlah <b>Anak Kandung Laki-laki</b>, <b>Anak Perempuan</b>, serta centang status hidup <b>Ayah</b> & <b>Ibu Kandung</b>.</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Pilih Cucu, Kakek/Nenek & Saudara (Seksi 3 & 4):</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Isi jumlah cucu (dari jalur Anak Laki-laki), kakek/nenek, serta saudara kandung/seayah/seibu yang hidup saat pewaris wafat.</li>
+                <li>Sistem otomatis menyeleksi siapa yang berhak menerima warisan dan siapa yang terhalang (<i>Mahjub Hirman</i>).</li>
+              </ul>
+            </li>
+
+            <li class="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <b class="text-emerald-900">Uji Simulasi Cepat & Cetak PDF:</b>
+              <ul class="list-disc list-inside ml-4 mt-1 text-xs text-slate-600 space-y-1">
+                <li>Gunakan tombol <b>Simulasi Cepat Kasus Istimewa</b> di bagian atas form untuk mempelajari 6 kasus langka dalam Faraidh.</li>
+                <li>Klik tombol <b>"⚡ Hitung Pembagian Waris Sekarang"</b> lalu klik <b>"🖨️ Cetak / Simpan PDF"</b>.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <!-- TAB 2: 6 KASUS ISTIMEWA FARAIDH -->
+        <div id="kontenFitur" class="hidden space-y-4 text-xs">
+          <h4 class="font-extrabold text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">⚙️ 6 Kasus di Luar Waris Normal yang Didukung Mesin Ini:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">1. Kasus 'Aul (Penyesuaian Penyebut)</b>
+              Terjadi saat total bagian <i>Dzawil Furudh</i> melebihi 100% (misal: 27/24). Penyebut dinaikkan sehingga seluruh ahli waris berbagi penyusutan secara adil.
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">2. Kasus Radd (Pengembalian Sisa)</b>
+              Terjadi saat harta tersisa dan tidak ada <i>Ashabah</i>. Sisa harta dikembalikan proporsional kepada <i>Ashabul Furudh</i> nasabiyah (selain Suami/Istri).
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">3. Kasus Gharrawain ('Umariyatain)</b>
+              Jika ahli waris hanya Pasangan (Suami/Istri) + Ibu + Ayah, maka Ibu mendapat <b>1/3 dari sisa</b> setelah bagian pasangan, dan Ayah mendapat 2/3 sisanya.
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">4. Kasus Musyarakah (Himariyyah)</b>
+              Suami (1/2) + Ibu/Nenek (1/6) + 2+ Sdr Seibu (1/3) + Sdr Kandung Laki-laki. Sdr Kandung berserikat dalam 1/3 milik Sdr Seibu dan dibagi rata per kepala.
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">5. Kasus Al-Akdariyyah (AM 27)</b>
+              Suami + Ibu + Kakek + 1 Sdr Perempuan (Kandung/Seayah). Terjadi 'Aul ke 9 lalu Kakek dan Sdr Perempuan berbagi (2:1) sehingga Asal Masalah menjadi 27.
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <b class="text-emerald-900 block mb-1">6. Takmilah & Ashabah Ma'al Ghair</b>
+              1 Cucu Pr mendapat 1/6 (penyempurna 2/3) bersama 1 Anak Pr (1/2), sedangkan Sdr Kandung Pr menjadi <i>Ashabah Ma'al Ghair</i> yang menghijab Sdr Seayah Lk.
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: MIT LICENSE -->
+        <div id="kontenLisensi" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-800">⚖️ Lisensi Resmi (MIT License)</span>
+            <span class="bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full text-[11px] font-bold">Open Source</span>
+          </div>
+
+          <pre class="p-4 rounded-2xl bg-slate-900 text-emerald-300 font-mono text-[11px] sm:text-xs overflow-x-auto leading-relaxed border border-slate-800 select-all">MIT License
+
+Copyright (c) 2026 Fatchurohman (fatur62)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+
+          <p class="text-xs text-slate-500 italic">
+            *Dengan lisensi MIT ini, siapa pun diizinkan menggunakan, mempelajari, memodifikasi, dan menyebarluaskan kode ini untuk edukasi dan kemaslahatan umat dengan tetap mencantumkan atribusi pengembang asli (<b>fatur62</b>).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 border-t border-slate-200 px-5 py-3.5 flex items-center justify-between">
+        <span class="text-[11px] text-slate-500">Versi 2.2 Ultimate &bull; MIT Licensed (fatur62)</span>
+        <button type="button" onclick="tutupModalReadme()" class="px-5 py-2 bg-emerald-900 hover:bg-emerald-950 text-amber-300 font-bold text-xs rounded-xl transition-all cursor-pointer">
+          Tutup Menu
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- SELURUH ENGINE FARAIDH SYAFI'I v2.2 & PRESET KASUS ISTIMEWA       -->
+  <!-- ================================================================= -->
+  <script>
+    // 0. Auto-Unregister Service Worker Lama agar perubahan langsung tampil
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+
+    // 1. Injeksi Web Manifest Dinamis (Single-File PWA Ready)
+    (function injectDynamicManifest() {
+      const svgIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23022c22'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='250'%3E🕌%3C/text%3E%3C/svg%3E";
+      const manifestData = {
+        name: "Kalkulator Waris Syafi'i Premium v2.2",
+        short_name: "Waris Syafi'i",
+        description: "Sistem kalkulasi waris Islam sesuai Syariat Faraidh Mazhab Syafi'i.",
+        start_url: window.location.href,
+        display: "standalone",
+        background_color: "#022c22",
+        theme_color: "#022c22",
+        icons: [
+          { src: svgIcon, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
+          { src: svgIcon, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+        ]
+      };
+      const blob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+      const link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = URL.createObjectURL(blob);
+      document.head.appendChild(link);
+    })();
+
+    // 2. Fungsi Kontrol Modal README & Lisensi MIT
+    function bukaModalReadme(tab = 'panduan') {
+      document.getElementById('modalReadme').classList.remove('hidden');
+      gantiTabReadme(tab);
+    }
+
+    function tutupModalReadme() {
+      document.getElementById('modalReadme').classList.add('hidden');
+    }
+
+    function tutupModalLuar(event) {
+      if (event.target.id === 'modalReadme') {
+        tutupModalReadme();
+      }
+    }
+
+    function gantiTabReadme(tabName) {
+      const tabs = ['panduan', 'fitur', 'lisensi'];
+      const mapKonten = {
+        panduan: 'kontenPanduan',
+        fitur: 'kontenFitur',
+        lisensi: 'kontenLisensi'
+      };
+      const mapBtn = {
+        panduan: 'tabBtnPanduan',
+        fitur: 'tabBtnFitur',
+        lisensi: 'tabBtnLisensi'
+      };
+
+      tabs.forEach(t => {
+        const kontenEl = document.getElementById(mapKonten[t]);
+        const btnEl = document.getElementById(mapBtn[t]);
+        if (t === tabName) {
+          kontenEl.classList.remove('hidden');
+          btnEl.className = 'px-4 py-2.5 text-xs font-extrabold rounded-t-xl border-b-2 border-emerald-800 text-emerald-950 bg-white cursor-pointer transition-all shrink-0';
+        } else {
+          kontenEl.classList.add('hidden');
+          btnEl.className = 'px-4 py-2.5 text-xs font-bold rounded-t-xl border-b-2 border-transparent text-slate-600 hover:text-slate-900 cursor-pointer transition-all shrink-0';
+        }
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') tutupModalReadme();
+    });
+
+    // 3. Helper Format & Parse Angka Rupiah
+    function parseRupiah(str) {
+      if (!str) return 0;
+      const clean = String(str).replace(/[^0-9]/g, '');
+      return clean ? parseInt(clean, 10) : 0;
+    }
+
+    function formatRupiah(num) {
+      return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+    }
+
+    function formatRupiahInput(input) {
+      let value = input.value.replace(/[^0-9]/g, '');
+      if (value === '') {
+        input.value = '';
+        return;
+      }
+      input.value = parseInt(value, 10).toLocaleString('id-ID');
+    }
+
+    function clampNumber(input, min, max) {
+      if (input.value === '') return;
+      let val = parseInt(input.value, 10);
+      if (isNaN(val) || val < min) input.value = min;
+      else if (val > max) input.value = max;
+    }
+
+    function togglePasangan(type) {
+      const elSuami = document.getElementById('suami');
+      const elIstri = document.getElementById('istri');
+      if (type === 'suami' && elSuami.checked) {
+        elIstri.value = 0;
+      } else if (type === 'istri' && parseInt(elIstri.value || 0, 10) > 0) {
+        elSuami.checked = false;
+      }
+    }
+
+    function updatePreviewTirkah() {
+      const kotor = parseRupiah(document.getElementById('hartaKotor').value);
+      const hutang = parseRupiah(document.getElementById('hutangBiaya').value);
+      const wasiat = parseRupiah(document.getElementById('wasiat').value);
+
+      const sisaSetelahHutang = Math.max(0, kotor - hutang);
+      const batasMaksWasiat = Math.floor(sisaSetelahHutang / 3);
+      const warningEl = document.getElementById('warningWasiat');
+
+      if (wasiat > batasMaksWasiat && sisaSetelahHutang > 0) {
+        warningEl.classList.remove('hidden');
+      } else {
+        warningEl.classList.add('hidden');
+      }
+
+      const hartaBersih = Math.max(0, sisaSetelahHutang - Math.min(wasiat, batasMaksWasiat));
+      document.getElementById('previewHartaBersih').textContent = formatRupiah(hartaBersih);
+    }
+
+    function sesuaikanWasiatMaks() {
+      const kotor = parseRupiah(document.getElementById('hartaKotor').value);
+      const hutang = parseRupiah(document.getElementById('hutangBiaya').value);
+      const sisaSetelahHutang = Math.max(0, kotor - hutang);
+      const batasMaksWasiat = Math.floor(sisaSetelahHutang / 3);
+      document.getElementById('wasiat').value = batasMaksWasiat.toLocaleString('id-ID');
+      updatePreviewTirkah();
+    }
+
+    function resetForm() {
+      document.getElementById('formWaris').reset();
+      document.getElementById('hartaKotor').value = '100.000.000';
+      document.getElementById('hutangBiaya').value = '0';
+      document.getElementById('wasiat').value = '0';
+      document.getElementById('hasilOutput').innerHTML = '';
+      document.getElementById('btnCetakPDF').classList.add('hidden');
+      updatePreviewTirkah();
+    }
+
+    // 4. Fungsi Muat Preset 6 Kasus Istimewa (Di Luar Waris Normal)
+    function muatPresetKasus(jenis) {
+      resetForm();
+      if (jenis === 'aul') {
+        document.getElementById('hartaKotor').value = '270.000.000';
+        document.getElementById('istri').value = 1;
+        document.getElementById('ayah').checked = true;
+        document.getElementById('ibu').checked = true;
+        document.getElementById('anakPerempuan').value = 2;
+      } else if (jenis === 'radd') {
+        document.getElementById('hartaKotor').value = '120.000.000';
+        document.getElementById('suami').checked = true;
+        document.getElementById('ibu').checked = true;
+        document.getElementById('anakPerempuan').value = 1;
+      } else if (jenis === 'gharrawain') {
+        document.getElementById('hartaKotor').value = '60.000.000';
+        document.getElementById('suami').checked = true;
+        document.getElementById('ibu').checked = true;
+        document.getElementById('ayah').checked = true;
+      } else if (jenis === 'musyarakah') {
+        document.getElementById('hartaKotor').value = '180.000.000';
+        document.getElementById('suami').checked = true;
+        document.getElementById('ibu').checked = true;
+        document.getElementById('saudaraSeibu').value = 2;
+        document.getElementById('saudaraKandungLaki').value = 1;
+      } else if (jenis === 'akdariyyah') {
+        document.getElementById('hartaKotor').value = '270.000.000';
+        document.getElementById('suami').checked = true;
+        document.getElementById('ibu').checked = true;
+        document.getElementById('kakek').checked = true;
+        document.getElementById('saudaraKandungPerempuan').value = 1;
+      } else if (jenis === 'takmilah') {
+        document.getElementById('hartaKotor').value = '240.000.000';
+        document.getElementById('istri').value = 1;
+        document.getElementById('anakPerempuan').value = 1;
+        document.getElementById('cucuPerempuan').value = 1;
+        document.getElementById('saudaraKandungPerempuan').value = 1;
+        document.getElementById('saudaraSeayahLaki').value = 1;
+      }
+      updatePreviewTirkah();
+      prosesHitungWaris();
+    }
+
+    // 5. CORE ENGINE FARAIDH MAZHAB SYAFI'I v2.2 (Mendukung Normal + 6 Kasus Istimewa)
+    function prosesHitungWaris() {
+      const hartaKotor = parseRupiah(document.getElementById('hartaKotor').value);
+      const hutangBiaya = parseRupiah(document.getElementById('hutangBiaya').value);
+      let wasiatInput = parseRupiah(document.getElementById('wasiat').value);
+
+      const sisaHutang = Math.max(0, hartaKotor - hutangBiaya);
+      const maksWasiat = Math.floor(sisaHutang / 3);
+      let wasiatTerpakai = wasiatInput;
+      let catatanWasiat = '';
+
+      if (wasiatInput > maksWasiat) {
+        wasiatTerpakai = maksWasiat;
+        catatanWasiat = `Wasiat awal (${formatRupiah(wasiatInput)}) disesuaikan otomatis ke batas maksimal 1/3 harta setelah hutang (${formatRupiah(maksWasiat)}).`;
+      }
+
+      const tirkah = Math.max(0, sisaHutang - wasiatTerpakai);
+
+      const w = {
+        suami: document.getElementById('suami').checked ? 1 : 0,
+        istri: parseInt(document.getElementById('istri').value || 0, 10),
+        anakLaki: parseInt(document.getElementById('anakLaki').value || 0, 10),
+        anakPerempuan: parseInt(document.getElementById('anakPerempuan').value || 0, 10),
+        ayah: document.getElementById('ayah').checked ? 1 : 0,
+        ibu: document.getElementById('ibu').checked ? 1 : 0,
+        cucuLaki: parseInt(document.getElementById('cucuLaki').value || 0, 10),
+        cucuPerempuan: parseInt(document.getElementById('cucuPerempuan').value || 0, 10),
+        kakek: document.getElementById('kakek').checked ? 1 : 0,
+        nenekIbu: document.getElementById('nenekIbu').checked ? 1 : 0,
+        nenekAyah: document.getElementById('nenekAyah').checked ? 1 : 0,
+        sdrKandungLaki: parseInt(document.getElementById('saudaraKandungLaki').value || 0, 10),
+        sdrKandungPr: parseInt(document.getElementById('saudaraKandungPerempuan').value || 0, 10),
+        sdrSeayahLaki: parseInt(document.getElementById('saudaraSeayahLaki').value || 0, 10),
+        sdrSeayahPr: parseInt(document.getElementById('saudaraSeayahPerempuan').value || 0, 10),
+        sdrSeibu: parseInt(document.getElementById('saudaraSeibu').value || 0, 10),
+        pamanKandung: parseInt(document.getElementById('pamanKandung').value || 0, 10),
+        pamanSeayah: parseInt(document.getElementById('pamanSeayah').value || 0, 10),
+        sepupuKandung: parseInt(document.getElementById('anakPamanKandung').value || 0, 10),
+        sepupuSeayah: parseInt(document.getElementById('anakPamanSeayah').value || 0, 10),
+        anakLuarNikah: parseInt(document.getElementById('anakLuarNikah').value || 0, 10),
+        warisBedaAgama: parseInt(document.getElementById('warisBedaAgama').value || 0, 10),
+        adaHamil: document.getElementById('adaHamil').checked
+      };
+
+      const adaFuru = (w.anakLaki + w.anakPerempuan + w.cucuLaki + w.cucuPerempuan) > 0;
+      const adaFuruLaki = (w.anakLaki + w.cucuLaki) > 0;
+      const adaFuruPr = (w.anakPerempuan + w.cucuPerempuan) > 0;
+      const totalSaudara = w.sdrKandungLaki + w.sdrKandungPr + w.sdrSeayahLaki + w.sdrSeayahPr + w.sdrSeibu;
+
+      let hasil = [];
+      let mahjubList = [];
+      let penjelasanKasusIstimewa = '';
+
+      // Evaluasi Hijab Dasar
+      if (w.cucuLaki > 0 && w.anakLaki > 0) mahjubList.push({ nama: 'Cucu Laki-laki', jumlah: w.cucuLaki, alasan: 'Terhalang (Mahjub) oleh Anak Laki-laki' });
+      if (w.cucuPerempuan > 0) {
+        if (w.anakLaki > 0) mahjubList.push({ nama: 'Cucu Perempuan', jumlah: w.cucuPerempuan, alasan: 'Terhalang oleh Anak Laki-laki' });
+        else if (w.anakPerempuan >= 2 && w.cucuLaki === 0) mahjubList.push({ nama: 'Cucu Perempuan', jumlah: w.cucuPerempuan, alasan: 'Terhalang oleh 2+ Anak Perempuan (tanpa Cucu Laki-laki penarik Ashabah)' });
+      }
+      if (w.kakek > 0 && w.ayah > 0) mahjubList.push({ nama: 'Kakek', jumlah: 1, alasan: 'Terhalang oleh Ayah' });
+      if (w.nenekIbu > 0 && w.ibu > 0) mahjubList.push({ nama: 'Nenek (Ibu dari Ibu)', jumlah: 1, alasan: 'Terhalang oleh Ibu' });
+      if (w.nenekAyah > 0 && (w.ibu > 0 || w.ayah > 0)) mahjubList.push({ nama: 'Nenek (Ibu dari Ayah)', jumlah: 1, alasan: 'Terhalang oleh Ibu atau Ayah' });
+
+      const kakekAktif = (w.kakek > 0 && w.ayah === 0) ? 1 : 0;
+      const cucuLakiAktif = (w.anakLaki === 0) ? w.cucuLaki : 0;
+      const cucuPrAktif = (w.anakLaki === 0 && !(w.anakPerempuan >= 2 && cucuLakiAktif === 0)) ? w.cucuPerempuan : 0;
+      const nenekIbuAktif = (w.nenekIbu > 0 && w.ibu === 0) ? 1 : 0;
+      const nenekAyahAktif = (w.nenekAyah > 0 && w.ibu === 0 && w.ayah === 0) ? 1 : 0;
+      const totalNenekAktif = nenekIbuAktif + nenekAyahAktif;
+
+      const sdrSeibuAktif = (!adaFuru && w.ayah === 0 && kakekAktif === 0) ? w.sdrSeibu : 0;
+      if (w.sdrSeibu > 0 && sdrSeibuAktif === 0) {
+        mahjubList.push({ nama: 'Saudara Seibu', jumlah: w.sdrSeibu, alasan: 'Terhalang oleh Anak/Cucu atau Ayah/Kakek' });
+      }
+
+      const penghalangSdrKandung = (w.anakLaki > 0 || cucuLakiAktif > 0 || w.ayah > 0);
+      const sdrKandungLakiAktif = !penghalangSdrKandung ? w.sdrKandungLaki : 0;
+      const sdrKandungPrAktif = !penghalangSdrKandung ? w.sdrKandungPr : 0;
+      if ((w.sdrKandungLaki + w.sdrKandungPr) > 0 && penghalangSdrKandung) {
+        mahjubList.push({ nama: 'Saudara Kandung (Lk/Pr)', jumlah: w.sdrKandungLaki + w.sdrKandungPr, alasan: 'Terhalang oleh Anak/Cucu Laki-laki atau Ayah' });
+      }
+
+      const sdrKandungPrJadiAshabahMaalGhair = (sdrKandungPrAktif > 0 && sdrKandungLakiAktif === 0 && adaFuruPr && !adaFuruLaki);
+
+      const penghalangSdrSeayah = penghalangSdrKandung || sdrKandungLakiAktif > 0 || sdrKandungPrJadiAshabahMaalGhair;
+      const sdrSeayahLakiAktif = !penghalangSdrSeayah ? w.sdrSeayahLaki : 0;
+      const sdrSeayahPrAktif = (!penghalangSdrSeayah && !(sdrKandungPrAktif >= 2 && sdrSeayahLakiAktif === 0)) ? w.sdrSeayahPr : 0;
+      if ((w.sdrSeayahLaki + w.sdrSeayahPr) > 0 && (sdrSeayahLakiAktif + sdrSeayahPrAktif) === 0) {
+        mahjubList.push({ nama: 'Saudara Seayah (Lk/Pr)', jumlah: w.sdrSeayahLaki + w.sdrSeayahPr, alasan: sdrKandungPrJadiAshabahMaalGhair ? 'Terhalang oleh Saudara Kandung Perempuan (Ashabah Ma\'al Ghair)' : 'Terhalang oleh garis di atasnya / Saudara Kandung' });
+      }
+
+      // ===============================================================
+      // DETEKSI KASUS ISTIMEWA 1: AL-AKDARIYYAH (Suami + Ibu + Kakek + 1 Sdr Pr)
+      // ===============================================================
+      const isAkdariyyah = (
+        !adaFuru && w.ayah === 0 && w.suami === 1 && w.ibu === 1 && kakekAktif === 1 &&
+        sdrKandungLakiAktif === 0 && sdrSeayahLakiAktif === 0 && sdrSeibuAktif === 0 &&
+        ((sdrKandungPrAktif === 1 && sdrSeayahPrAktif === 0) || (sdrKandungPrAktif === 0 && sdrSeayahPrAktif === 1))
+      );
+
+      if (isAkdariyyah) {
+        const namaSdrPr = sdrKandungPrAktif === 1 ? 'Saudara Kandung Perempuan (1 org)' : 'Saudara Seayah Perempuan (1 org)';
+        hasil = [
+          { nama: 'Suami', jumlah: 1, labelBagian: '9/27 (Akdariyyah)', porsiAkhir: 9/27 },
+          { nama: 'Ibu Kandung', jumlah: 1, labelBagian: '6/27 (Akdariyyah)', porsiAkhir: 6/27 },
+          { nama: 'Kakek Shahih', jumlah: 1, labelBagian: '8/27 (Muqasamah 2:1)', porsiAkhir: 8/27 },
+          { nama: namaSdrPr, jumlah: 1, labelBagian: '4/27 (Muqasamah 2:1)', porsiAkhir: 4/27 }
+        ];
+        penjelasanKasusIstimewa = 'Kasus Al-Akdariyyah (Asal Masalah 6 -> \'Aul ke 9 -> Tashih ke 27): Kakek (1/6) dan 1 Saudara Perempuan (1/2) menggabungkan bagian mereka (4/9) lalu membaginya dengan rasio 2:1.';
+        renderHasilOutput({
+          hartaKotor, hutangBiaya, wasiatTerpakai, catatanWasiat, tirkah,
+          statusKasus: 'Kasus Istimewa: Al-Akdariyyah (AM 27)', hasil, mahjubList, w, penjelasanKasusIstimewa
+        });
+        return;
+      }
+
+      // ===============================================================
+      // DETEKSI KASUS ISTIMEWA 2: MUSYARAKAH / HIMARIYYAH
+      // (Suami + Ibu/Nenek + 2+ Sdr Seibu + Sdr Kandung Laki-laki [+/- Sdr Kandung Pr])
+      // ===============================================================
+      const isMusyarakah = (
+        !adaFuru && w.ayah === 0 && kakekAktif === 0 &&
+        w.suami === 1 && (w.ibu === 1 || totalNenekAktif > 0) &&
+        sdrSeibuAktif >= 2 && sdrKandungLakiAktif >= 1
+      );
+
+      if (isMusyarakah) {
+        const totalKepalaBerserikat = sdrSeibuAktif + sdrKandungLakiAktif + sdrKandungPrAktif;
+        hasil.push({ nama: 'Suami', jumlah: 1, labelBagian: '1/2 (Dzawil Furudh)', porsiAkhir: 1/2 });
+        if (w.ibu === 1) {
+          hasil.push({ nama: 'Ibu Kandung', jumlah: 1, labelBagian: '1/6 (Dzawil Furudh)', porsiAkhir: 1/6 });
+        } else {
+          hasil.push({ nama: `Nenek (${totalNenekAktif} jalur)`, jumlah: totalNenekAktif, labelBagian: '1/6 (Dzawil Furudh)', porsiAkhir: 1/6 });
+        }
+        hasil.push({
+          nama: `Saudara Seibu (${sdrSeibuAktif} org)`,
+          jumlah: sdrSeibuAktif,
+          labelBagian: `Kongsi 1/3 (Musyarakah)`,
+          porsiAkhir: (1/3) * (sdrSeibuAktif / totalKepalaBerserikat)
+        });
+        hasil.push({
+          nama: `Saudara Kandung Laki-laki (${sdrKandungLakiAktif} org)`,
+          jumlah: sdrKandungLakiAktif,
+          labelBagian: `Kongsi 1/3 (Musyarakah)`,
+          porsiAkhir: (1/3) * (sdrKandungLakiAktif / totalKepalaBerserikat)
+        });
+        if (sdrKandungPrAktif > 0) {
+          hasil.push({
+            nama: `Saudara Kandung Perempuan (${sdrKandungPrAktif} org)`,
+            jumlah: sdrKandungPrAktif,
+            labelBagian: `Kongsi 1/3 (Musyarakah)`,
+            porsiAkhir: (1/3) * (sdrKandungPrAktif / totalKepalaBerserikat)
+          });
+        }
+        penjelasanKasusIstimewa = `Kasus Musyarakah / Himariyyah: Karena harta habis oleh Suami (1/2), Ibu/Nenek (1/6), dan Saudara Seibu (1/3), maka Saudara Kandung digabungkan ke dalam porsi 1/3 milik Saudara Seibu dan dibagi rata per kepala (${totalKepalaBerserikat} orang) sesuai Mazhab Syafi'i.`;
+        renderHasilOutput({
+          hartaKotor, hutangBiaya, wasiatTerpakai, catatanWasiat, tirkah,
+          statusKasus: 'Kasus Istimewa: Musyarakah / Himariyyah', hasil, mahjubList, w, penjelasanKasusIstimewa
+        });
+        return;
+      }
+
+      // ===============================================================
+      // DETEKSI KASUS ISTIMEWA 3: GHARRAWAIN / 'UMARIYATAIN
+      // ===============================================================
+      const isGharrawain = (!adaFuru && totalSaudara < 2 && w.ayah === 1 && w.ibu === 1 && (w.suami === 1 || w.istri > 0));
+
+      // Hitung Furudh Standar
+      if (w.suami === 1) {
+        const bagian = adaFuru ? 1/4 : 1/2;
+        hasil.push({ nama: 'Suami', jumlah: 1, labelBagian: adaFuru ? '1/4 (Dzawil Furudh)' : '1/2 (Dzawil Furudh)', fardh: bagian, isPasangan: true });
+      }
+      if (w.istri > 0) {
+        const bagian = adaFuru ? 1/8 : 1/4;
+        hasil.push({ nama: `Istri (${w.istri} orang)`, jumlah: w.istri, labelBagian: adaFuru ? '1/8 (Dzawil Furudh)' : '1/4 (Dzawil Furudh)', fardh: bagian, isPasangan: true });
+      }
+      if (w.ibu === 1) {
+        if (isGharrawain) {
+          const bagianPasangan = w.suami === 1 ? 1/2 : 1/4;
+          hasil.push({ nama: 'Ibu Kandung', jumlah: 1, labelBagian: '1/3 Sisa (Gharrawain)', fardh: (1 - bagianPasangan) / 3 });
+          penjelasanKasusIstimewa = "Kasus Gharrawain ('Umariyatain): Ahli waris hanya terdiri dari Pasangan, Ibu, dan Ayah. Ibu mendapatkan 1/3 dari sisa harta setelah diambil hak pasangan, agar bagian Ibu tidak melampaui Ayah.";
+        } else {
+          const dapatSeperenam = adaFuru || totalSaudara >= 2;
+          hasil.push({ nama: 'Ibu Kandung', jumlah: 1, labelBagian: dapatSeperenam ? '1/6 (Dzawil Furudh)' : '1/3 (Dzawil Furudh)', fardh: dapatSeperenam ? 1/6 : 1/3 });
+        }
+      }
+      if (w.ayah === 1 && adaFuru) {
+        hasil.push({ nama: 'Ayah Kandung', jumlah: 1, labelBagian: adaFuruLaki ? '1/6 (Dzawil Furudh)' : '1/6 + Sisa (Ashabah)', fardh: 1/6 });
+      }
+      if (kakekAktif === 1 && adaFuru) {
+        hasil.push({ nama: 'Kakek Shahih', jumlah: 1, labelBagian: adaFuruLaki ? '1/6 (Dzawil Furudh)' : '1/6 + Sisa (Ashabah)', fardh: 1/6 });
+      }
+
+      if (totalNenekAktif > 0) {
+        hasil.push({ nama: `Nenek (${totalNenekAktif} jalur)`, jumlah: totalNenekAktif, labelBagian: '1/6 (Dzawil Furudh)', fardh: 1/6 });
+      }
+
+      if (w.anakPerempuan > 0 && w.anakLaki === 0) {
+        const bagian = w.anakPerempuan === 1 ? 1/2 : 2/3;
+        hasil.push({ nama: `Anak Perempuan (${w.anakPerempuan} org)`, jumlah: w.anakPerempuan, labelBagian: w.anakPerempuan === 1 ? '1/2 (Dzawil Furudh)' : '2/3 (Dzawil Furudh)', fardh: bagian });
+      }
+      if (cucuPrAktif > 0 && cucuLakiAktif === 0) {
+        if (w.anakPerempuan === 1) {
+          hasil.push({ nama: `Cucu Perempuan (${cucuPrAktif} org)`, jumlah: cucuPrAktif, labelBagian: '1/6 (Takmilah Li Tsulutsain)', fardh: 1/6 });
+          penjelasanKasusIstimewa = "Takmilah Li Tsulutsain: Cucu Perempuan mendapatkan 1/6 sebagai penyempurna bagian 2/3 bersama 1 Anak Perempuan.";
+        } else if (w.anakPerempuan === 0) {
+          const bagian = cucuPrAktif === 1 ? 1/2 : 2/3;
+          hasil.push({ nama: `Cucu Perempuan (${cucuPrAktif} org)`, jumlah: cucuPrAktif, labelBagian: cucuPrAktif === 1 ? '1/2 (Dzawil Furudh)' : '2/3 (Dzawil Furudh)', fardh: bagian });
+        }
+      }
+
+      if (sdrKandungPrAktif > 0 && sdrKandungLakiAktif === 0 && !adaFuruPr) {
+        const bagian = sdrKandungPrAktif === 1 ? 1/2 : 2/3;
+        hasil.push({ nama: `Saudara Kandung Perempuan (${sdrKandungPrAktif} org)`, jumlah: sdrKandungPrAktif, labelBagian: sdrKandungPrAktif === 1 ? '1/2 (Dzawil Furudh)' : '2/3 (Dzawil Furudh)', fardh: bagian });
+      }
+
+      const sdrSeayahPrJadiAshabahMaalGhair = (sdrSeayahPrAktif > 0 && sdrSeayahLakiAktif === 0 && adaFuruPr && !adaFuruLaki);
+      if (sdrSeayahPrAktif > 0 && sdrSeayahLakiAktif === 0 && !sdrSeayahPrJadiAshabahMaalGhair) {
+        if (sdrKandungPrAktif === 1) {
+          hasil.push({ nama: `Saudara Seayah Perempuan (${sdrSeayahPrAktif} org)`, jumlah: sdrSeayahPrAktif, labelBagian: '1/6 (Takmilah)', fardh: 1/6 });
+        } else if (sdrKandungPrAktif === 0) {
+          const bagian = sdrSeayahPrAktif === 1 ? 1/2 : 2/3;
+          hasil.push({ nama: `Saudara Seayah Perempuan (${sdrSeayahPrAktif} org)`, jumlah: sdrSeayahPrAktif, labelBagian: sdrSeayahPrAktif === 1 ? '1/2 (Dzawil Furudh)' : '2/3 (Dzawil Furudh)', fardh: bagian });
+        }
+      }
+
+      if (sdrSeibuAktif > 0) {
+        const bagian = sdrSeibuAktif === 1 ? 1/6 : 1/3;
+        hasil.push({ nama: `Saudara Seibu (${sdrSeibuAktif} org)`, jumlah: sdrSeibuAktif, labelBagian: sdrSeibuAktif === 1 ? '1/6 (Dzawil Furudh)' : '1/3 (Dzawil Furudh)', fardh: bagian });
+      }
+
+      let totalFardh = hasil.reduce((sum, item) => sum + item.fardh, 0);
+      let statusKasus = 'Normal (Adil)';
+      let sisaFardh = Math.max(0, 1 - totalFardh);
+
+      let kelompokAshabah = [];
+      if (w.anakLaki > 0) {
+        kelompokAshabah.push({ nama: `Anak Laki-laki (${w.anakLaki} org)`, jumlah: w.anakLaki, bobotPerOrang: 2 });
+        if (w.anakPerempuan > 0) kelompokAshabah.push({ nama: `Anak Perempuan (${w.anakPerempuan} org)`, jumlah: w.anakPerempuan, bobotPerOrang: 1 });
+      } else if (cucuLakiAktif > 0) {
+        kelompokAshabah.push({ nama: `Cucu Laki-laki (${cucuLakiAktif} org)`, jumlah: cucuLakiAktif, bobotPerOrang: 2 });
+        if (cucuPrAktif > 0) kelompokAshabah.push({ nama: `Cucu Perempuan (${cucuPrAktif} org)`, jumlah: cucuPrAktif, bobotPerOrang: 1 });
+      } else if (w.ayah === 1) {
+        kelompokAshabah.push({ nama: 'Ayah Kandung', jumlah: 1, bobotPerOrang: 1, gabungKeAyah: true });
+      } else if (kakekAktif === 1) {
+        kelompokAshabah.push({ nama: 'Kakek Shahih', jumlah: 1, bobotPerOrang: 1, gabungKeKakek: true });
+      } else if (sdrKandungLakiAktif > 0 || sdrKandungPrJadiAshabahMaalGhair) {
+        if (sdrKandungLakiAktif > 0) kelompokAshabah.push({ nama: `Saudara Kandung Laki-laki (${sdrKandungLakiAktif} org)`, jumlah: sdrKandungLakiAktif, bobotPerOrang: 2 });
+        if (sdrKandungPrAktif > 0) kelompokAshabah.push({ nama: `Saudara Kandung Perempuan (${sdrKandungPrAktif} org)`, jumlah: sdrKandungPrAktif, bobotPerOrang: 1, isMaalGhair: sdrKandungPrJadiAshabahMaalGhair });
+      } else if (sdrSeayahLakiAktif > 0 || sdrSeayahPrJadiAshabahMaalGhair) {
+        if (sdrSeayahLakiAktif > 0) kelompokAshabah.push({ nama: `Saudara Seayah Laki-laki (${sdrSeayahLakiAktif} org)`, jumlah: sdrSeayahLakiAktif, bobotPerOrang: 2 });
+        if (sdrSeayahPrAktif > 0) kelompokAshabah.push({ nama: `Saudara Seayah Perempuan (${sdrSeayahPrAktif} org)`, jumlah: sdrSeayahPrAktif, bobotPerOrang: 1, isMaalGhair: sdrSeayahPrJadiAshabahMaalGhair });
+      } else if (w.pamanKandung > 0) {
+        kelompokAshabah.push({ nama: `Paman Kandung (${w.pamanKandung} org)`, jumlah: w.pamanKandung, bobotPerOrang: 1 });
+      } else if (w.pamanSeayah > 0) {
+        kelompokAshabah.push({ nama: `Paman Seayah (${w.pamanSeayah} org)`, jumlah: w.pamanSeayah, bobotPerOrang: 1 });
+      } else if (w.sepupuKandung > 0) {
+        kelompokAshabah.push({ nama: `Sepupu Laki Kandung (${w.sepupuKandung} org)`, jumlah: w.sepupuKandung, bobotPerOrang: 1 });
+      } else if (w.sepupuSeayah > 0) {
+        kelompokAshabah.push({ nama: `Sepupu Laki Seayah (${w.sepupuSeayah} org)`, jumlah: w.sepupuSeayah, bobotPerOrang: 1 });
+      }
+
+      if (isGharrawain) {
+        statusKasus = "Kasus Istimewa: Gharrawain / 'Umariyatain";
+      }
+
+      if (totalFardh > 1.0001) {
+        statusKasus = `Kasus Istimewa: 'Aul (Total Furudh ${(totalFardh * 100).toFixed(1)}% disesuaikan proporsional)`;
+        penjelasanKasusIstimewa = `Kasus 'Aul: Total bagian pasti (Dzawil Furudh) mencapai ${(totalFardh * 100).toFixed(2)}% (melebihi 100%). Dalam Faraidh Syafi'i, penyebut dinaikkan sehingga setiap ahli waris mengalami penyesuaian secara proporsional.`;
+        hasil.forEach(item => { item.porsiAkhir = item.fardh / totalFardh; });
+      } else if (kelompokAshabah.length > 0) {
+        hasil.forEach(item => { item.porsiAkhir = item.fardh; });
+        const totalBobot = kelompokAshabah.reduce((acc, a) => acc + (a.jumlah * a.bobotPerOrang), 0);
+
+        kelompokAshabah.forEach(ash => {
+          const porsiAsh = sisaFardh * ((ash.jumlah * ash.bobotPerOrang) / totalBobot);
+          if (ash.gabungKeAyah) {
+            const idxAyah = hasil.findIndex(h => h.nama === 'Ayah Kandung');
+            if (idxAyah >= 0) hasil[idxAyah].porsiAkhir += porsiAsh;
+            else hasil.push({ nama: 'Ayah Kandung', jumlah: 1, labelBagian: 'Ashabah Binafsihi (Sisa)', porsiAkhir: porsiAsh });
+          } else if (ash.gabungKeKakek) {
+            const idxKakek = hasil.findIndex(h => h.nama === 'Kakek Shahih');
+            if (idxKakek >= 0) hasil[idxKakek].porsiAkhir += porsiAsh;
+            else hasil.push({ nama: 'Kakek Shahih', jumlah: 1, labelBagian: 'Ashabah Binafsihi (Sisa)', porsiAkhir: porsiAsh });
+          } else {
+            let labelAsh = 'Ashabah Binafsihi (Sisa)';
+            if (ash.isMaalGhair) {
+              labelAsh = "Ashabah Ma'al Ghair (Sisa)";
+              statusKasus = "Kasus Istimewa: Takmilah & Ashabah Ma'al Ghair";
+            } else if (kelompokAshabah.length > 1) {
+              labelAsh = 'Ashabah Bil Ghair (2:1)';
+            }
+            hasil.push({
+              nama: ash.nama,
+              jumlah: ash.jumlah,
+              labelBagian: labelAsh,
+              porsiAkhir: porsiAsh
+            });
+          }
+        });
+      } else if (sisaFardh > 0.0001 && hasil.length > 0) {
+        const ahliWarisNonPasangan = hasil.filter(h => !h.isPasangan);
+        if (ahliWarisNonPasangan.length > 0) {
+          statusKasus = 'Kasus Istimewa: Radd (Pengembalian Sisa Harta)';
+          penjelasanKasusIstimewa = 'Kasus Radd: Karena harta waris masih tersisa dan tidak ada penerima Ashabah, sisa harta dikembalikan secara proporsional kepada Ashabul Furudh nasabiyah (selain Suami/Istri).';
+          const totalFardhNonPasangan = ahliWarisNonPasangan.reduce((s, h) => s + h.fardh, 0);
+          hasil.forEach(item => {
+            item.porsiAkhir = item.isPasangan ? item.fardh : item.fardh + (sisaFardh * (item.fardh / totalFardhNonPasangan));
+          });
+        } else {
+          statusKasus = 'Sisa Harta ke Baitul Mal (Tanpa Ashabah & Dzawil Arham)';
+          hasil.forEach(item => { item.porsiAkhir = item.fardh; });
+          hasil.push({ nama: 'Baitul Mal (Kas Kemaslahatan Umat)', jumlah: 1, labelBagian: 'Sisa Harta', porsiAkhir: sisaFardh });
+        }
+      } else {
+        hasil.forEach(item => { item.porsiAkhir = item.fardh; });
+      }
+
+      renderHasilOutput({
+        hartaKotor, hutangBiaya, wasiatTerpakai, catatanWasiat, tirkah,
+        statusKasus, hasil, mahjubList, w, penjelasanKasusIstimewa
+      });
+    }
+
+    function renderHasilOutput(data) {
+      const container = document.getElementById('hasilOutput');
+      const btnCetak = document.getElementById('btnCetakPDF');
+
+      if (data.hasil.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 rounded-3xl bg-rose-50 border border-rose-200 text-rose-900 text-center space-y-2">
+            <p class="text-base font-extrabold">⚠️ Belum Ada Ahli Waris yang Dipilih</p>
+            <p class="text-xs text-rose-700">Silakan pilih minimal satu ahli waris yang masih hidup pada Seksi 2, 3, atau 4 di atas.</p>
+          </div>`;
+        btnCetak.classList.add('hidden');
+        return;
+      }
+
+      let rowsHtml = data.hasil.map(item => {
+        const nominalTotal = data.tirkah * item.porsiAkhir;
+        const nominalPerOrang = nominalTotal / item.jumlah;
+        const persen = (item.porsiAkhir * 100).toFixed(2);
+        return `
+          <tr class="border-b border-slate-100 hover:bg-emerald-50/40 transition-all">
+            <td class="py-3.5 px-4 font-bold text-slate-800">${item.nama}</td>
+            <td class="py-3.5 px-4 text-center">
+              <span class="inline-block bg-emerald-100 text-emerald-900 px-2.5 py-1 rounded-lg text-[11px] font-bold">${item.labelBagian}</span>
+            </td>
+            <td class="py-3.5 px-4 text-center font-bold text-slate-600">${persen}%</td>
+            <td class="py-3.5 px-4 text-right font-extrabold text-emerald-900">${formatRupiah(nominalTotal)}</td>
+            <td class="py-3.5 px-4 text-right font-bold text-amber-800">${item.jumlah > 1 ? formatRupiah(nominalPerOrang) + ' /org' : formatRupiah(nominalPerOrang)}</td>
+          </tr>`;
+      }).join('');
+
+      let infoIstimewaHtml = '';
+      if (data.penjelasanKasusIstimewa) {
+        infoIstimewaHtml = `
+          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs space-y-1">
+            <div class="font-extrabold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
+              <span>💡</span> Penjelasan Kaidah Kasus Istimewa:
+            </div>
+            <p class="leading-relaxed">${data.penjelasanKasusIstimewa}</p>
+          </div>`;
+      }
+
+      let mahjubHtml = '';
+      if (data.mahjubList.length > 0) {
+        mahjubHtml = `
+          <div class="mt-5 p-4 rounded-2xl bg-slate-100 border border-slate-200 space-y-2">
+            <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">🔒 Daftar Kerabat Terhalang (Mahjub Hirman)</h4>
+            <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+              ${data.mahjubList.map(m => `<li><b>${m.nama} (${m.jumlah} org):</b> ${m.alasan}</li>`).join('')}
+            </ul>
+          </div>`;
+      }
+
+      let catatanKhususHtml = '';
+      if (data.w.anakLuarNikah > 0 || data.w.warisBedaAgama > 0 || data.w.adaHamil || data.catatanWasiat) {
+        catatanKhususHtml = `
+          <div class="mt-5 p-4 rounded-2xl bg-amber-50 border border-amber-300 space-y-2 text-xs text-amber-950">
+            <h4 class="font-extrabold uppercase tracking-wider text-amber-900">📌 Catatan Hukum Faraidh Syafi'i (Kondisi Khusus)</h4>
+            <ul class="space-y-1.5 list-disc list-inside">
+              ${data.catatanWasiat ? `<li><b>Wasiat:</b> ${data.catatanWasiat}</li>` : ''}
+              ${data.w.anakLuarNikah > 0 ? `<li><b>Anak Di Luar Nikah (${data.w.anakLuarNikah} org):</b> Dalam Mazhab Syafi'i, anak luar nikah hanya bernasab dan saling mewarisi dengan Ibunya serta kerabat jalur Ibu.</li>` : ''}
+              ${data.w.warisBedaAgama > 0 ? `<li><b>Ahli Waris Beda Agama / Murtad (${data.w.warisBedaAgama} org):</b> Terhalang mutlak menerima warisan, namun bagi kerabat non-muslim dapat diberikan Wasiat Wajibah / Hibah (maks 1/3).</li>` : ''}
+              ${data.w.adaHamil ? `<li><b>Ada Janin Dalam Kandungan (Al-Haml):</b> Pembagian dilakukan dengan menahan (Mauquf) porsi terbaik bagi janin hingga lahir hidup.</li>` : ''}
+            </ul>
+          </div>`;
+      }
+
+      container.innerHTML = `
+        <div class="border-t-2 border-dashed border-slate-200 pt-6 space-y-5">
+          <div class="bg-gradient-to-r from-emerald-950 to-slate-900 text-white p-5 rounded-3xl shadow-lg">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3 mb-3">
+              <div>
+                <span class="text-[11px] uppercase tracking-wider text-amber-300 font-bold">Hasil Perhitungan Faraidh</span>
+                <h3 class="text-lg font-extrabold">Rincian Pembagian Waris</h3>
+              </div>
+              <span class="inline-block bg-amber-400/20 border border-amber-400/40 text-amber-300 px-3 py-1 rounded-full text-xs font-bold">${data.statusKasus}</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div class="bg-white/5 p-2.5 rounded-xl">
+                <p class="text-emerald-200/70">Harta Kotor</p>
+                <p class="font-bold text-sm mt-0.5">${formatRupiah(data.hartaKotor)}</p>
+              </div>
+              <div class="bg-white/5 p-2.5 rounded-xl">
+                <p class="text-emerald-200/70">Hutang & Tajhiz</p>
+                <p class="font-bold text-sm mt-0.5 text-rose-300">- ${formatRupiah(data.hutangBiaya)}</p>
+              </div>
+              <div class="bg-white/5 p-2.5 rounded-xl">
+                <p class="text-emerald-200/70">Wasiat Sah</p>
+                <p class="font-bold text-sm mt-0.5 text-amber-200">- ${formatRupiah(data.wasiatTerpakai)}</p>
+              </div>
+              <div class="bg-amber-400/20 border border-amber-400/30 p-2.5 rounded-xl">
+                <p class="text-amber-200 font-semibold">Harta Bersih (Al-Irts)</p>
+                <p class="font-extrabold text-sm mt-0.5 text-amber-300">${formatRupiah(data.tirkah)}</p>
+              </div>
+            </div>
+          </div>
+
+          ${infoIstimewaHtml}
+
+          <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 uppercase tracking-wider text-[11px] border-b border-slate-200">
+                  <th class="py-3 px-4">Ahli Waris</th>
+                  <th class="py-3 px-4 text-center">Status / Bagian</th>
+                  <th class="py-3 px-4 text-center">Persentase</th>
+                  <th class="py-3 px-4 text-right">Total Bagian (Rp)</th>
+                  <th class="py-3 px-4 text-right">Per Orang (Rp)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+          </div>
+
+          ${mahjubHtml}
+          ${catatanKhususHtml}
+        </div>
+      `;
+
+      btnCetak.classList.remove('hidden');
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>
